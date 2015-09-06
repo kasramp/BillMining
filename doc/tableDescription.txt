@@ -1,0 +1,18 @@
+SQL files are stored here.
+
+Relative path example : File file = new File(".\\\properties\\\files\\\ListStopWords.txt");
+
+-- USE TEXT SINCE SQL LITE DOESN'T HAVE DATE/TIME DATA TYPE
+-- it is calculative
+-- no interface to add item (it is coming from billing item interface)
+
+-- if 0 means either no gst or inclusive
+-- USE TEXT SINCE SQL LITE DOESN'T HAVE DATE/TIME DATA TYPE
+
+CREATE TABLE IF NOT EXISTS bill_mining (
+guid TEXT NOT NULL, -- can be from combination of different fields (composite key) or just item_id
+item_id INTEGER NOT NULL,
+price INTEGER NOT NULL,
+outlet_pkid INTEGER NOT NULL,
+date_of_suggestion TEXT -- for gradual completetion (ETL)
+);

@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS company (
+pkid INTEGER PRIMARY KEY AUTOINCREMENT,
+company_name TEXT NOT NULL,
+company_code TEXT NOT NULL,
+date_created TEXT NOT NULL
+);

@@ -19,8 +19,8 @@ package com.outlet.db;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
+
 import com.outlet.common.Utilities;
-import com.outlet.db.JDBCConnection;
 public class DbInit
 {
 	// 	Connect to local dbs

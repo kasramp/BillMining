@@ -17,30 +17,19 @@
 
 package com.outlet.gui.report;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 import java.awt.Image;
-
-import javax.swing.border.EtchedBorder;
-import javax.swing.JLabel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class ViewImage extends JFrame {
 

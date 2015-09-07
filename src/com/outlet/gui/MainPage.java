@@ -18,8 +18,24 @@
 package com.outlet.gui;
 
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EtchedBorder;
 
 import com.outlet.db.DbInit;
 import com.outlet.gui.add.AddBill;
@@ -33,33 +49,6 @@ import com.outlet.gui.report.CompanyList;
 import com.outlet.gui.report.DeveloperQuery;
 import com.outlet.gui.report.ItemList;
 import com.outlet.gui.report.OutletList;
-
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JMenu;
-import javax.swing.JSeparator;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.KeyStroke;
-import java.awt.event.InputEvent;
-import javax.swing.event.MenuKeyListener;
-import javax.swing.event.MenuKeyEvent;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import java.awt.FlowLayout;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
 
 public class MainPage {
 

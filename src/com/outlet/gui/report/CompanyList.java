@@ -17,14 +17,20 @@
 
 package com.outlet.gui.report;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
@@ -32,13 +38,6 @@ import javax.swing.table.DefaultTableModel;
 import com.outlet.common.Utilities;
 import com.outlet.gui.MainPage;
 import com.outlet.objects.Company;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class CompanyList extends JFrame {
 

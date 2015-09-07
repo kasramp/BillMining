@@ -17,47 +17,34 @@
 
 package com.outlet.gui.report;
 
-import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
-import java.util.Vector;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.outlet.common.Utilities;
 import com.outlet.gui.MainPage;
 import com.outlet.objects.Category;
 import com.outlet.objects.Item;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
-import java.awt.Point;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 
 public class ItemList extends JFrame {
 

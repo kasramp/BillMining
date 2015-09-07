@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -30,18 +29,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.Vector;
-import java.util.List;
+
 import com.outlet.db.JDBCConnection;
-import com.outlet.objects.BillIndex;
+import com.outlet.objects.BillMining;
 import com.outlet.objects.Category;
 import com.outlet.objects.Company;
 import com.outlet.objects.Item;
 import com.outlet.objects.Outlet;
-import com.outlet.objects.BillMining.RptRow;
-import com.outlet.objects.BillMining;
 
 public class Utilities
 {

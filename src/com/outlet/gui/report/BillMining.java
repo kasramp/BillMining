@@ -17,10 +17,19 @@
 
 package com.outlet.gui.report;
 
-import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,22 +38,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.outlet.common.Utilities;
 import com.outlet.gui.MainPage;
 import com.outlet.objects.BillMining.RptRow;
 import com.outlet.objects.Item;
-
-import java.awt.GridLayout;
-import java.awt.Point;
-
-import javax.swing.JButton;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class BillMining extends JFrame {
 

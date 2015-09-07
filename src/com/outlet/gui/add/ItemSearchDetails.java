@@ -17,31 +17,27 @@
 
 package com.outlet.gui.add;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.awt.event.ActionEvent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 import com.outlet.common.DocRow;
 import com.outlet.objects.Category;
 import com.outlet.objects.Item;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 public class ItemSearchDetails extends JFrame {
 

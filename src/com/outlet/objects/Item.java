@@ -17,22 +17,14 @@
 
 package com.outlet.objects;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-import javax.swing.ImageIcon;
-
 import com.outlet.common.Utilities;
-import com.outlet.db.DbInit;
 import com.outlet.db.JDBCConnection;
 
 public class Item {

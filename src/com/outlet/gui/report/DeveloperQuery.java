@@ -17,37 +17,34 @@
 
 package com.outlet.gui.report;
 
-import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Vector;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
+
 import com.outlet.common.Utilities;
 import com.outlet.gui.MainPage;
 
 import jsyntaxpane.DefaultSyntaxKit;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTextArea;
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.awt.event.ActionEvent;
-import java.util.Vector;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JLabel;
-import javax.swing.border.BevelBorder;
 
 public class DeveloperQuery extends JFrame {
 

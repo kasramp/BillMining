@@ -17,17 +17,40 @@
 
 package com.outlet.gui.add;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -38,31 +61,6 @@ import com.outlet.common.Utilities;
 import com.outlet.gui.MainPage;
 import com.outlet.objects.Company;
 import com.outlet.objects.Outlet;
-
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-import javax.swing.border.EtchedBorder;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.GridLayout;
 
 public class AddOutlet extends JFrame {
 

@@ -17,61 +17,34 @@
 
 package com.outlet.gui.add;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import com.outlet.common.Utilities;
-import com.outlet.gui.MainPage;
-import com.outlet.objects.Category;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.TreeMap;
-import java.awt.event.ActionEvent;
-import javax.swing.JTabbedPane;
-import javax.swing.JLayeredPane;
-import javax.swing.JInternalFrame;
-import javax.swing.JDesktopPane;
-import javax.swing.JSplitPane;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
-import javax.swing.JToolBar;
-import javax.swing.JSeparator;
-import javax.swing.JEditorPane;
-import javax.swing.JSpinner;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EtchedBorder;
-import java.awt.GridBagLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
 import java.awt.GridLayout;
-import javax.swing.SpringLayout;
-import net.miginfocom.swing.MigLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
+
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import com.outlet.gui.MainPage;
+import com.outlet.objects.Category;
 
 public class AddCategory extends JFrame {
 

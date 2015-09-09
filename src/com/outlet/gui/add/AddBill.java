@@ -167,7 +167,7 @@ public class AddBill extends JFrame {
 		lblOutlet.setBounds(26, 87, 100, 14);
 		contentPane.add(lblOutlet);
 		
-		Company oneComp = getCompany(comboBox);
+		/*Company oneComp = getCompany(comboBox);
 		if(oneComp != null) {
 			List<Outlet> lstOutlet = Outlet.getObjects("company_pkid = " + oneComp.getPkid());
 			if(lstOutlet != null && !lstOutlet.isEmpty() && lstOutlet.size()>0) {
@@ -176,7 +176,7 @@ public class AddBill extends JFrame {
 					comboBox_1.addItem(oneOutlet.getOutletName() + " (" + oneOutlet.getOutletCode() + ")");
 				}
 				}
-			}
+			}*/
 		}
 		/*String columnNames[] = { "Column 1", "Column 2", "Column 3" };
 		// Create some data

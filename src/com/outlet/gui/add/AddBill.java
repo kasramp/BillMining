@@ -116,6 +116,7 @@ public class AddBill extends JFrame {
 		this.backPage = backPage;
 	}
 	public AddBill() {
+		setTitle("Add Bill");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 460, 490);
 		contentPane = new JPanel();

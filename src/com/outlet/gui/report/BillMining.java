@@ -72,6 +72,7 @@ public class BillMining extends JFrame {
 		this.backPage = backPage;
 	}
 	public BillMining() {
+		setTitle("Bill Mining Report");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 627, 479);
 		contentPane = new JPanel();

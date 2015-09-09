@@ -85,6 +85,7 @@ public class AddCategory extends JFrame {
 		this.backPage = backPage;
 	}
 	public AddCategory() {
+		setTitle("Add Category");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 392, 310);
 		contentPane = new JPanel();

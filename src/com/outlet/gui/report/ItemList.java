@@ -84,6 +84,7 @@ public class ItemList extends JFrame {
 		this.backPage = backPage;
 	}
 	public ItemList() {
+		setTitle("Item Listing");
 		addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent arg0) {
 				

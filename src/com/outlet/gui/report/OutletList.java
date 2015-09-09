@@ -73,6 +73,7 @@ public class OutletList extends JFrame {
 		this.backPage = backPage;
 	}
 	public OutletList() {
+		setTitle("Outlet Listing");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 330);
 		contentPane = new JPanel();

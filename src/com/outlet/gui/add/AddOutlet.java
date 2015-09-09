@@ -101,6 +101,7 @@ public class AddOutlet extends JFrame {
 		this.backPage = backPage;
 	}
 	public AddOutlet() {
+		setTitle("Add Outlet");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 394, 317);
 		contentPane = new JPanel();

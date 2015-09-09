@@ -93,6 +93,7 @@ public class AddCompany extends JFrame {
 		this.backPage = backPage;
 	}
 	public AddCompany() {
+		setTitle("Add Company");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 392, 300);
 		contentPane = new JPanel();

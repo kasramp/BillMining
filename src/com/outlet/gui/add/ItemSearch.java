@@ -84,6 +84,7 @@ public class ItemSearch extends JFrame {
 		this.backPage = backPage;
 	}
 	public ItemSearch() {
+		setTitle("Item Search");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 308);
 		contentPane = new JPanel();

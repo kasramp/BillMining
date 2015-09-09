@@ -53,7 +53,7 @@ import com.outlet.gui.report.OutletList;
 
 public class MainPage {
 
-	private JFrame frame;
+	private JFrame frmBillminingmainPage;
 	private AddItem item;
 	private AddCategory category;
 	private AddOutlet outlet;
@@ -81,7 +81,7 @@ public class MainPage {
 					}
 					//newDb.DbInit();
 					MainPage window = new MainPage();
-					window.frame.setVisible(true);
+					window.frmBillminingmainPage.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -105,13 +105,14 @@ public class MainPage {
 		} catch(Exception ex){
 			ex.printStackTrace();
 		}
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
+		frmBillminingmainPage = new JFrame();
+		frmBillminingmainPage.setTitle("BillMining");
+		frmBillminingmainPage.setBounds(100, 100, 450, 300);
+		frmBillminingmainPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmBillminingmainPage.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel panel_5 = new JPanel();
-		frame.getContentPane().add(panel_5);
+		frmBillminingmainPage.getContentPane().add(panel_5);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -248,17 +249,26 @@ public class MainPage {
 		
 		JButton btnAddBill = new JButton("Add Bill");
 		panel_5.add(panel_4);
+		
+		JButton button = new JButton("Bill Mining");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				openBillMining();
+			}
+		});
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addComponent(btnAddBill, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+				.addComponent(btnAddBill, GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+				.addComponent(button, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
 		);
 		gl_panel_4.setVerticalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_4.createSequentialGroup()
 					.addGap(31)
 					.addComponent(btnAddBill)
-					.addContainerGap(66, Short.MAX_VALUE))
+					.addGap(12)
+					.addComponent(button))
 		);
 		panel_4.setLayout(gl_panel_4);
 		btnAddBill.addActionListener(new ActionListener() {
@@ -277,27 +287,17 @@ public class MainPage {
 				openDeveloperQuery();
 			}
 		});
-		
-		JButton btnNewButton_4 = new JButton("Bill Mining");
-		btnNewButton_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				openBillMining();
-			}
-		});
 		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
 		gl_panel_6.setHorizontalGroup(
 			gl_panel_6.createParallelGroup(Alignment.LEADING)
-				.addComponent(btnNewButton_3, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-				.addComponent(btnNewButton_4, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+				.addComponent(btnNewButton_3, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
 		);
 		gl_panel_6.setVerticalGroup(
 			gl_panel_6.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_6.createSequentialGroup()
 					.addGap(31)
 					.addComponent(btnNewButton_3)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnNewButton_4)
-					.addContainerGap(28, Short.MAX_VALUE))
+					.addContainerGap(66, Short.MAX_VALUE))
 		);
 		panel_6.setLayout(gl_panel_6);
 		btnOutletList.addActionListener(new ActionListener() {
@@ -312,7 +312,7 @@ public class MainPage {
 		});
 		
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		frmBillminingmainPage.setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu_5 = new JMenu("Bill");
 		menuBar.add(mnNewMenu_5);
@@ -454,23 +454,23 @@ public class MainPage {
 		mnNewMenu_4.add(mntmNewMenuItem_7);
 	}
 	public void setVisibility(boolean val) {
-		MainPage.this.frame.setVisible(val);
+		MainPage.this.frmBillminingmainPage.setVisible(val);
 	}
 	private void openAddItem(){
 		if(item == null) {
 			item = new  AddItem(MainPage.this);
 			item.show();
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		} else {
 			item.setVisible(true);
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		}
 	}
 	private void openItemListing() {
 		//if(itemLst == null) {
 			itemLst = new  ItemList(MainPage.this);
 			itemLst.show();
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		/*} else {
 			itemLst.setVisible(true);
 			MainPage.this.frame.setVisible(false);
@@ -480,17 +480,17 @@ public class MainPage {
 		if(category == null) {
 			category = new AddCategory(MainPage.this);
 			category.show();
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		} else {
 			category.setVisible(true);
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		}
 	}
 	private void openCategoryListing() {
 		//if(catLst == null) {
 			catLst = new  CategoryList(MainPage.this);
 			catLst.show();
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		/*} else {
 			catLst.setVisible(true);
 			MainPage.this.frame.setVisible(false);
@@ -500,17 +500,17 @@ public class MainPage {
 		if(outlet == null) {
 			outlet = new AddOutlet(MainPage.this);
 			outlet.show();
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		} else {
 			outlet.setVisible(true);
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		}
 	}
 	private void openOutletList() {
 		//if(outletLst == null) {
 			outletLst = new OutletList(MainPage.this);
 			outletLst.show();
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		/*} else {
 			outletLst.setVisible(true);
 			MainPage.this.frame.setVisible(false);
@@ -520,17 +520,17 @@ public class MainPage {
 		if(company == null) {
 			company = new AddCompany(MainPage.this);
 			company.show();
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		} else {
 			company.setVisible(true);
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		}		
 	}
 	private void openCompanyList() {
 		//if(outletLst == null) {
 		companyLst = new CompanyList(MainPage.this);
 		companyLst.show();
-		MainPage.this.frame.setVisible(false);
+		MainPage.this.frmBillminingmainPage.setVisible(false);
 		/*} else {
 			outletLst.setVisible(true);
 			MainPage.this.frame.setVisible(false);
@@ -540,30 +540,30 @@ public class MainPage {
 		if(developerQuery == null) {
 			developerQuery = new DeveloperQuery(MainPage.this);
 			developerQuery.show();
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		} else {
 			developerQuery.setVisible(true);
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		}
 	}
 	private void openAddBill() {
 		if(bill == null) {
 			bill = new AddBill(MainPage.this);
 			bill.show();
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		} else {
 			bill.setVisible(true);
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		}
 	}
 	private void openBillMining() {
 		if(billMining == null) {
 			billMining = new BillMining(MainPage.this);
 			billMining.show();
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		} else {
 			billMining.setVisible(true);
-			MainPage.this.frame.setVisible(false);
+			MainPage.this.frmBillminingmainPage.setVisible(false);
 		}
 	}
 }

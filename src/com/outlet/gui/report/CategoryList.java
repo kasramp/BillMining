@@ -76,6 +76,7 @@ public class CategoryList extends JFrame {
 		this.backPage = backPage;
 	}
 	public CategoryList() {
+		setTitle("Category Listing");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

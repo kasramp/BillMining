@@ -76,6 +76,7 @@ public class CompanyList extends JFrame {
 		this.backPage = backPage;
 	}
 	public CompanyList() {
+		setTitle("Company Listing");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

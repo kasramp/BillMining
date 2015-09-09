@@ -79,6 +79,7 @@ public class DeveloperQuery extends JFrame {
 		this.backPage = backPage;
 	}
 	public DeveloperQuery() {
+		setTitle("Developer Query");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 667, 548);
 		contentPane = new JPanel();

@@ -67,6 +67,7 @@ public class ViewImage extends JFrame {
 		
 	}
 	public ViewImage() {
+		setTitle("View Image");
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {

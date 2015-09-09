@@ -453,13 +453,13 @@ public class AddBill extends JFrame {
 					.addGap(122)
 					.addComponent(datePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(separator, GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+					.addComponent(separator, GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
 					.addGap(3))
-				.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-				.addComponent(panel_5, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-				.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+				.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+				.addComponent(panel_5, GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+				.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -475,7 +475,7 @@ public class AddBill extends JFrame {
 									.addGap(15)
 									.addComponent(datePicker, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)))
 							.addGap(56)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
 							.addGap(11)
 							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
 							.addGap(10)
@@ -484,7 +484,8 @@ public class AddBill extends JFrame {
 							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 							.addGap(7)
 							.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
+					.addGap(8))
 		);
 		contentPane.setLayout(gl_contentPane);
 		btnCancel.addActionListener(new ActionListener() {

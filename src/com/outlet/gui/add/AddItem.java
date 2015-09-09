@@ -421,7 +421,7 @@ public class AddItem extends JFrame {
 	}
 	public void addRefreshCategory() {
 		comboBox.removeAllItems();
-		List<Category> cat = Category.getObjects("1=1");
+		List<Category> cat = Category.getObjects("1=1 ORDER BY category_name");
 		if(cat != null && !cat.isEmpty()) {
 			for(int i=0;i<cat.size();i++) {
 				Category oneCat = cat.get(i);

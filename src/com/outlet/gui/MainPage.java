@@ -462,6 +462,7 @@ public class MainPage {
 			item.show();
 			MainPage.this.frmBillminingmainPage.setVisible(false);
 		} else {
+			item.addRefreshCategory();
 			item.setVisible(true);
 			MainPage.this.frmBillminingmainPage.setVisible(false);
 		}

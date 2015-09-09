@@ -98,16 +98,7 @@ public class AddItem extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-	
-		List<Category> cat = Category.getObjects("1=1");
-		if(cat != null && !cat.isEmpty()) {
-			for(int i=0;i<cat.size();i++) {
-				Category oneCat = cat.get(i);
-				comboBox.addItem(oneCat.getCategoryName() + " (" + oneCat.getCategoryCode() + ")");
-				
-			}
-		}
-		
+		addRefreshCategory();
 		JSeparator separator = new JSeparator();
 		
 		label = new JLabel("");
@@ -427,6 +418,17 @@ public class AddItem extends JFrame {
 		Image newImage = img.getScaledInstance(lblNewLabel.getWidth(), lblNewLabel.getHeight(),Image.SCALE_SMOOTH); 
 		ImageIcon image = new ImageIcon(newImage); 
 		return image; 
+	}
+	public void addRefreshCategory() {
+		comboBox.removeAllItems();
+		List<Category> cat = Category.getObjects("1=1");
+		if(cat != null && !cat.isEmpty()) {
+			for(int i=0;i<cat.size();i++) {
+				Category oneCat = cat.get(i);
+				comboBox.addItem(oneCat.getCategoryName() + " (" + oneCat.getCategoryCode() + ")");
+				
+			}
+		}
 	}
 
 }

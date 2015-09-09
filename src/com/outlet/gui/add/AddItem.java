@@ -68,6 +68,7 @@ public class AddItem extends JFrame {
 	private JTextField textField;
 	private JLabel lblNewLabel;
 	private byte[] image = null;
+	private File lastPath;
 	/**
 	 * Launch the application.
 	 */
@@ -191,7 +192,11 @@ public class AddItem extends JFrame {
 		btnBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser fileChooser = new JFileChooser(); 
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home"))); 
+				if(lastPath != null) {
+					fileChooser.setCurrentDirectory(lastPath);
+				} else {
+					fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				}
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("Picture(*.jpg, *.gif, *.png)", "jpg","gif","png"); 
 				fileChooser.addChoosableFileFilter(filter); 
 				int result = fileChooser.showSaveDialog(null); 
@@ -208,6 +213,7 @@ public class AddItem extends JFrame {
 						fileInputStream.read(image);
 						fileInputStream.close(); 
 						label.setText("Item Picture (" + selectedFile.getName() + ") Loaded!");
+						lastPath = selectedFile.getParentFile();
 			        }catch(Exception e){
 			        	e.printStackTrace();
 			        }

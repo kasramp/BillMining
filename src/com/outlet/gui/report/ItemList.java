@@ -109,7 +109,7 @@ public class ItemList extends JFrame {
 		for(int i=0;i<lists.size();i++) {
 			Item item = lists.get(i);
 			Object[] obj = new Object[columns.length];
-			obj[0] = i;
+			obj[0] = i+1;
 			obj[1] = item.getPkid();
 			obj[2] = item.getItemCode();
 			obj[3] = item.getItemName();

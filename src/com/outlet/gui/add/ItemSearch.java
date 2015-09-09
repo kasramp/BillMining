@@ -116,9 +116,11 @@ public class ItemSearch extends JFrame {
 					+ keyword + "%' ORDER BY PKID";
 					List<Item> lstItem = Item.getObjects(condition);
 					if(lstItem == null || lstItem.isEmpty()){
-						;// update the status bar 
+						for(int i=0;i<tableModel.getRowCount();i++)
+						{
+							tableModel.removeRow(i);
+						} 
 					} else {
-						
 						for(int i=0;i<tableModel.getRowCount();i++)
 						{
 							tableModel.removeRow(i);

@@ -35,6 +35,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
 import com.outlet.db.DbInit;
@@ -99,6 +100,11 @@ public class MainPage {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		try{
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch(Exception ex){
+			ex.printStackTrace();
+		}
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

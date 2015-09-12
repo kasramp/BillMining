@@ -560,13 +560,16 @@ public class MainPage {
 		}
 	}
 	private void openBillMining() {
-		if(billMining == null) {
+		billMining = new BillMining(MainPage.this);
+		billMining.show();
+		MainPage.this.frmBillminingmainPage.setVisible(false);
+		/*if(billMining == null) {
 			billMining = new BillMining(MainPage.this);
 			billMining.show();
 			MainPage.this.frmBillminingmainPage.setVisible(false);
 		} else {
 			billMining.setVisible(true);
 			MainPage.this.frmBillminingmainPage.setVisible(false);
-		}
+		}*/
 	}
 }

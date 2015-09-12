@@ -553,6 +553,8 @@ public class MainPage {
 			bill.show();
 			MainPage.this.frmBillminingmainPage.setVisible(false);
 		} else {
+			bill.loadCompany();
+			bill.loadOutlet();
 			bill.setVisible(true);
 			MainPage.this.frmBillminingmainPage.setVisible(false);
 		}

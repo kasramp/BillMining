@@ -90,6 +90,7 @@ public class AddBill extends JFrame {
 	private JButton btnSave;
 	private JDatePickerImpl datePicker;
 	public JLabel lblNewLabel;
+	private String defaultCompanyValue = "";
 
 	/**
 	 * Launch the application.
@@ -133,32 +134,11 @@ public class AddBill extends JFrame {
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		
 		comboBox = new JComboBox();
-		comboBox_1 = new JComboBox();
-		comboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				Company oneComp = getCompany(comboBox);
-				if(oneComp != null) {
-					comboBox_1.removeAllItems();
-					List<Outlet> lstOutlet = Outlet.getObjects("company_pkid = " + oneComp.getPkid());
-					if(lstOutlet != null && !lstOutlet.isEmpty() && lstOutlet.size()>0) {
-						for(int i=0;i<lstOutlet.size();i++) {
-							Outlet oneOutlet = lstOutlet.get(i);
-							comboBox_1.addItem(oneOutlet.getOutletName() + " (" + oneOutlet.getOutletCode() + ")");
-						}
-					}
-				}
-			}
-		});
+		//comboBox_1 = new JComboBox<>();
 		//comboBox_1.setBounds(122, 62, 202, 20);
 		//contentPane.add(comboBox_1);
-		List<Company> comp = Company.getObjects("1=1 ORDER BY PKID");
-		if(comp != null && !comp.isEmpty()) {
-			for(int i=0;i<comp.size();i++) {
-				Company oneComp = comp.get(i);
-				if(Outlet.getObjects("company_pkid = " + oneComp.getPkid()).size() > 0) {
-					comboBox.addItem(oneComp.getCompanyName() + " (" + oneComp.getCompanyCode() + ")");
-			}
-		}
+		
+		loadCompany();
 		comboBox.setBounds(127, 62, 202, 20);
 		contentPane.add(comboBox);
 		
@@ -177,7 +157,6 @@ public class AddBill extends JFrame {
 				}
 				}
 			}*/
-		}
 		/*String columnNames[] = { "Column 1", "Column 2", "Column 3" };
 		// Create some data
 		String dataValues[][] =
@@ -200,6 +179,27 @@ public class AddBill extends JFrame {
 		        }
 			}
 		});*/
+		
+		// Load outlets
+		comboBox_1 = new JComboBox();
+		loadOutlet();
+		
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				Company oneComp = getCompany(comboBox);
+				if(oneComp != null) {
+					comboBox_1.removeAllItems();
+					List<Outlet> lstOutlet = Outlet.getObjects("company_pkid = " + oneComp.getPkid());
+					if(lstOutlet != null && !lstOutlet.isEmpty() && lstOutlet.size()>0) {
+						for(int i=0;i<lstOutlet.size();i++) {
+							Outlet oneOutlet = lstOutlet.get(i);
+							comboBox_1.addItem(oneOutlet.getOutletName() + " (" + oneOutlet.getOutletCode() + ")");
+						}
+					}
+				}
+			}
+		});
+		
 		Vector vecTree = new Vector();
 		//vecTree.add("s");
 		tableModel = new DefaultTableModel(DocRow.HEADER_FIELDS_ARR, 0);
@@ -502,7 +502,12 @@ public class AddBill extends JFrame {
 		updateSaveBtn();
 	}
 	private Company getCompany(JComboBox comboBox) {
-		String value = comboBox.getSelectedItem().toString();
+		String value = ""; 
+		try {
+			value = comboBox.getSelectedItem().toString();
+		} catch(Exception ex) {
+			value =  defaultCompanyValue;
+		}
 		String[] valArr = value.split("[(]");
 		value = valArr[1].substring(0,valArr[1].length()-1);
 		/*List<Company> rtnResult = Company.getObjects("company_code = '" + value + "'");
@@ -628,5 +633,33 @@ public class AddBill extends JFrame {
 		}
 		this.updateSaveBtn();
 		
+	}
+	public void loadCompany() {
+		List<Company> comp = Company.getObjects("1=1 ORDER BY PKID");
+		if(comp != null && !comp.isEmpty()) {
+			comboBox.removeAllItems();
+			for(int i=0;i<comp.size();i++) {
+				Company oneComp = comp.get(i);
+				if(Outlet.getObjects("company_pkid = " + oneComp.getPkid()).size() > 0) {
+					comboBox.addItem(oneComp.getCompanyName() + " (" + oneComp.getCompanyCode() + ")");
+					if(Utilities.isNullOrEmpty(defaultCompanyValue)) {
+						defaultCompanyValue = oneComp.getCompanyName() + " (" + oneComp.getCompanyCode() + ")";
+					}
+				}
+			}
+		}
+	}
+	public void loadOutlet() {
+		comboBox_1.removeAllItems();
+		Company oneComp = getCompany(comboBox);
+		List<Outlet> lstOutlet = Outlet.getObjects("company_pkid = " + oneComp.getPkid());
+		if(lstOutlet != null && !lstOutlet.isEmpty() && lstOutlet.size()>0) {
+			comboBox_1.removeAllItems();
+			for(int i=0;i<lstOutlet.size();i++) {
+				Outlet oneOutlet = lstOutlet.get(i);
+				comboBox_1.addItem(oneOutlet.getOutletName() + " (" + oneOutlet.getOutletCode() + ")");
+			}
+			comboBox_1.setSelectedIndex(0);
+		}
 	}
 }

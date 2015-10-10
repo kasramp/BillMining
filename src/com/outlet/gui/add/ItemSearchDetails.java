@@ -73,12 +73,12 @@ public class ItemSearchDetails extends JFrame {
 		this();
 		this.backPage = backPage;
 		this.savePage = savePage;
-		Item itm = Item.getObject(pkid);
+		Item itm = new Item().getObject(pkid);
 		if(itm != null) {
 			this.itemId = pkid;
 			textField.setText(itm.getItemName());
 			textField_2.setText(itm.getItemCode());
-			Category cat = Category.getObject(itm.getCategoryId());
+			Category cat = new Category().getObject(itm.getCategoryId());
 			textField_1.setText(cat.getCategoryName() + " (" + cat.getCategoryCode() + ")");
 			spinner.setValue(itm.getMaCost());
 			spinner_1.setValue(1);
@@ -95,8 +95,8 @@ public class ItemSearchDetails extends JFrame {
 			this.itemId = doc.getItemPKid();
 			textField.setText(doc.getItemName());
 			textField_2.setText(doc.getItemCode());
-			Item itm = Item.getObject(doc.getItemPKid());
-			Category cat = Category.getObject(itm.getCategoryId());
+			Item itm = new Item().getObject(doc.getItemPKid());
+			Category cat = new Category().getObject(itm.getCategoryId());
 			textField_1.setText(cat.getCategoryName() + " (" + cat.getCategoryCode() + ")");
 			spinner.setValue(doc.getItemCost());
 			spinner_1.setValue(doc.getQty());

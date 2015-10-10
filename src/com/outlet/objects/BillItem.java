@@ -24,7 +24,7 @@ import java.util.TreeMap;
 
 import com.outlet.common.Utilities;
 
-public class BillItem {
+public class BillItem implements Bean<BillItem>{
 
 	public static final String TABLE_NAME = "bill_item";
 	public static final String FIELDS = "pkid, bill_index_pkid, item_id, qty, price, gst_amount";
@@ -82,7 +82,7 @@ public class BillItem {
 		this.gstAmount = gstAmount;
 	}
 	// Implementing Nut
-	public static BillItem getObject(Integer pkid) {
+	public BillItem getObject(Integer pkid) {
 		BillItem billItm = new BillItem();
 		try {
 			String query = "SELECT * FROM " + TABLE_NAME + " WHERE pkid = " + pkid.toString();
@@ -97,7 +97,7 @@ public class BillItem {
 		}
 		return billItm;
 	}
-	public static List<BillItem> getObjects(String conditions) {
+	public List<BillItem> getObjects(String conditions) {
 		List<BillItem> rtnResult = new ArrayList<BillItem>();
 		try {
 			String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + conditions;
@@ -140,15 +140,18 @@ public class BillItem {
 		}
 		return billItm;
 	}
-	public static void setObject(BillItem billItmObj) throws Exception{
+	public Integer setObject(BillItem billItmObj) throws Exception{
+		Integer pkid = new Integer(0);
 		try {
 			String values = getValuesInString(billItmObj);
 			String query = "INSERT INTO " + TABLE_NAME + " (" + FIELDS_NO_PKID + ") VALUES (" + values + ")";
 			Utilities.executeSqlQuery(query);
-		} catch(Exception ex) {
+			pkid = Utilities.getLastPkid(TABLE_NAME);
+			} catch(Exception ex) {
 			ex.printStackTrace();
 			throw ex;
 		}
+		return pkid;
 	}
 	private static String getValuesInString(BillItem billItmObj) {
 		String values = "";

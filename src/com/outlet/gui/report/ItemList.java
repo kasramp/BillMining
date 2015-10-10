@@ -105,7 +105,7 @@ public class ItemList extends JFrame {
 		        }
 		    }
 		};;
-		List<Item> lists = Item.getObjects("1=1 ORDER BY PKID");
+		List<Item> lists = new Item().getObjects("1=1 ORDER BY PKID");
 		for(int i=0;i<lists.size();i++) {
 			Item item = lists.get(i);
 			Object[] obj = new Object[columns.length];
@@ -114,7 +114,7 @@ public class ItemList extends JFrame {
 			obj[2] = item.getItemCode();
 			obj[3] = item.getItemName();
 			obj[4] = item.getMaCost();
-			Category cat = Category.getObject(item.getCategoryId());
+			Category cat = new Category().getObject(item.getCategoryId());
 			obj[5] = cat.getCategoryName() + " (" + cat.getCategoryCode() + ")";
 			if(item.getImage() == null || item.getImage().length<1) {
 				obj[6] = "No Image";

@@ -24,7 +24,7 @@ import java.util.TreeMap;
 
 import com.outlet.common.Utilities;
 
-public class Outlet {
+public class Outlet implements Bean<Outlet>{
 	public static final String TABLE_NAME = "outlet";
 	public static final String FIELDS = "pkid, company_pkid, outlet_name, outlet_code, outlet_address, date_created";
 	public static final String HEADER_FIELDS = "No #, Pkid, Outlet Code, Outlet Name"
@@ -118,9 +118,9 @@ public class Outlet {
 		}
 		return outlet;
 	}*/
-	public static Outlet getObject(Integer pkid) {
+	public Outlet getObject(Integer pkid) {
 		try {
-			List<Outlet> outletLst = Outlet.getObjects("pkid = " + pkid);
+			List<Outlet> outletLst = new Outlet().getObjects("pkid = " + pkid);
 			if(outletLst != null && ! outletLst.isEmpty()) {
 				return outletLst.get(0);
 			}
@@ -131,7 +131,7 @@ public class Outlet {
 	}
 	public static Outlet getObject(String outletCode) {
 		try {
-			List<Outlet> outletLst = Outlet.getObjects("outlet_code = '" + outletCode + "'");
+			List<Outlet> outletLst = new Outlet().getObjects("outlet_code = '" + outletCode + "'");
 			if(outletLst != null && ! outletLst.isEmpty()) {
 				return outletLst.get(0);
 			}
@@ -140,7 +140,7 @@ public class Outlet {
 		}
 		return null;
 	}
-	public static List<Outlet> getObjects(String conditions) {
+	public List<Outlet> getObjects(String conditions) {
 		List<Outlet> rtnResult = new ArrayList<Outlet>();
 		try {
 		String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + conditions;
@@ -176,15 +176,18 @@ public class Outlet {
 		}
 		return outlet;
 	}
-	public static void setObject(Outlet outlet) throws Exception{
+	public Integer setObject(Outlet outlet) throws Exception{
+		Integer pkid = new Integer(0);
 		try {
 			String values = getValuesInString(outlet);
 			String query = "INSERT INTO " + TABLE_NAME + " (" + FIELDS_NO_PKID + ") VALUES (" + values + ")";
 			Utilities.executeSqlQuery(query);
+			pkid = Utilities.getLastPkid(TABLE_NAME);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			throw ex;
 		}
+		return pkid;
 	}
 	private static String getValuesInString(Outlet outlet) {
 		String values = "";

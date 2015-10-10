@@ -84,7 +84,7 @@ public class CompanyList extends JFrame {
 		setContentPane(contentPane);
 		String[] columns = Company.HEADER_FIELDS.split(",");
 		DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
-		List<Company> lists = Company.getObjects("1=1 ORDER BY PKID");
+		List<Company> lists = new Company().getObjects("1=1 ORDER BY PKID");
 		for(int i=0;i<lists.size();i++) {
 			Company comp = lists.get(i);
 			String[] data = Utilities.convertToCSV(comp,",","true");

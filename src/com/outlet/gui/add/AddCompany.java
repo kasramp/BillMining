@@ -238,7 +238,7 @@ public class AddCompany extends JFrame {
 				comp.setDateCreated(Utilities.getTime(reportDate));
 				
 				try {
-					Company.setObject(comp);
+					new Company().setObject(comp);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -114,7 +114,7 @@ public class ItemSearch extends JFrame {
 					String keyword = textField.getText();
 					String condition = "item_name LIKE '%" + keyword + "%' OR item_code LIKE '%" 
 					+ keyword + "%' ORDER BY PKID";
-					List<Item> lstItem = Item.getObjects(condition);
+					List<Item> lstItem = new Item().getObjects(condition);
 					if(lstItem == null || lstItem.isEmpty()){
 						for(int i=0;i<tableModel.getRowCount();i++)
 						{

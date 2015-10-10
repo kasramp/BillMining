@@ -26,7 +26,7 @@ import java.util.UUID;
 
 import com.outlet.common.Utilities;
 
-public class BillMining {
+public class BillMining implements Bean<BillMining> {
 
 	public static final String TABLE_NAME = "bill_mining";
 	public static final String FIELDS = "guid, item_id, price, outlet_pkid, date_of_suggestion";
@@ -81,7 +81,7 @@ public class BillMining {
 		this.dateOfSuggestion = dateOfSuggestion;
 	}
 	// Implementing Nut
-	public static BillMining getObject(Integer pkid)
+	public BillMining getObject(Integer pkid)
 	{
 		BillMining bm = new BillMining();
 		try {
@@ -99,7 +99,7 @@ public class BillMining {
 		}
 		return bm;
 	}
-	public static List<BillMining> getObjects(String conditions)
+	public List<BillMining> getObjects(String conditions)
 	{
 		List<BillMining> rtnResult = new ArrayList<BillMining>();
 		try {
@@ -133,15 +133,18 @@ public class BillMining {
 		}
 		return bm;
 	}
-	public static void setObject(BillMining billMinObj) throws Exception{
+	public Integer setObject(BillMining billMinObj) throws Exception{
+		Integer pkid = new Integer(0);
 		try {
 			String values = getValuesInString(billMinObj);
 			String query = "INSERT INTO " + TABLE_NAME + " (" + FIELDS_NO_PKID + ") VALUES (" + values + ")";
 			Utilities.executeSqlQuery(query);
+			pkid = Utilities.getLastPkid(TABLE_NAME);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			throw ex;
 		}
+		return pkid;
 	}
 	private static String getValuesInString(BillMining billMinObj) {
 		String values = "";
@@ -162,11 +165,11 @@ public class BillMining {
 		// One Row, One Item Suggestion
 		try {
 			// First loop through items
-			List<Item> itmLst = Item.getObjects("1=1 ORDER BY PKID");
+			List<Item> itmLst = new Item().getObjects("1=1 ORDER BY PKID");
 			for(int i=0;i<itmLst.size();i++) {
 				Item oneItem = itmLst.get(i);
 				// Now get all bills for this item
-				List<BillItem> billItmLst = BillItem.getObjects("item_id = " + oneItem.getPkid() + " ORDER BY PKID");
+				List<BillItem> billItmLst = new BillItem().getObjects("item_id = " + oneItem.getPkid() + " ORDER BY PKID");
 				if(billItmLst.size()>0) {
 					RptRow oneRow = new RptRow();
 					oneRow.itemId = oneItem.getPkid();
@@ -176,7 +179,7 @@ public class BillMining {
 					oneRow.frequencyOfPurchase = new Integer(billItmLst.size());
 					// Get Last purchase
 					BillItem oneBill = billItmLst.get(billItmLst.size()-1);
-					BillIndex billIndex = BillIndex.getObject(oneBill.getBillIndexPkid());
+					BillIndex billIndex = new BillIndex().getObject(oneBill.getBillIndexPkid());
 					oneRow.lastAppearance = billIndex.getDateCreated();
 					BillItem cheapestBill = billItmLst.get(0);
 					oneRow.fopWithOptimalPrice = new Integer(1);
@@ -193,11 +196,11 @@ public class BillMining {
 					}
 					oneRow.billNo = cheapestBill.getBillIndexPkid();
 					oneRow.optimalPrice = cheapestBill.getPrice();
-					billIndex = BillIndex.getObject(cheapestBill.getBillIndexPkid());
+					billIndex = new BillIndex().getObject(cheapestBill.getBillIndexPkid());
 					oneRow.dateOfPurchase = billIndex.getDateCreated();
-					Company comp = Company.getObject(billIndex.getCompanyPkid());
+					Company comp = new Company().getObject(billIndex.getCompanyPkid());
 					oneRow.companyNameCode = comp.getCompanyName() + " (" + comp.getCompanyCode() + ")";
-					Outlet outlet = Outlet.getObject(billIndex.getOutletPkid());
+					Outlet outlet = new Outlet().getObject(billIndex.getOutletPkid());
 					oneRow.outletNameCode = outlet.getOutletName() + " (" + outlet.getOutletCode() + ")";
 					oneRow.outletAddress = outlet.getOutletAddress();
 					rtnResult.add(oneRow);

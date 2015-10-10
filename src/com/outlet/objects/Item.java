@@ -27,7 +27,7 @@ import java.util.TreeMap;
 import com.outlet.common.Utilities;
 import com.outlet.db.JDBCConnection;
 
-public class Item {
+public class Item implements Bean<Item> {
 	public static final String TABLE_NAME = "item";
 	public static final String FIELDS = "pkid, item_code, item_name, ma_cost, category_id, image";
 	public static final String HEADER_FIELDS = "No #, Pkid, Item Code, Item Name, Ma Cost, Catrgory Name (Code), Image";
@@ -102,9 +102,9 @@ public class Item {
 		}
 		return itm;
 	}*/
-	public static Item getObject(Integer pkid) {
+	public Item getObject(Integer pkid) {
 		try {
-			List<Item> itemtLst = Item.getObjects("pkid = " + pkid);
+			List<Item> itemtLst = new Item().getObjects("pkid = " + pkid);
 			if(itemtLst != null && ! itemtLst.isEmpty()) {
 				return itemtLst.get(0);
 			}
@@ -115,7 +115,7 @@ public class Item {
 	}
 	public static Item getObject(String itemCode) {
 		try {
-			List<Item> itemtLst = Item.getObjects("item_code = '" + itemCode + "'");
+			List<Item> itemtLst = new Item().getObjects("item_code = '" + itemCode + "'");
 			if(itemtLst != null && ! itemtLst.isEmpty()) {
 				return itemtLst.get(0);
 			}
@@ -124,7 +124,7 @@ public class Item {
 		}
 		return null;
 	}
-	public static List<Item> getObjects(String conditions)
+	public List<Item> getObjects(String conditions)
 	{
 		List<Item> rtnResult = new ArrayList<Item>();
 		try {
@@ -168,7 +168,8 @@ public class Item {
 		}
 		return itm;
 	}
-	public static void setObject(Item itmObj) throws Exception{
+	public Integer setObject(Item itmObj) throws Exception{
+		Integer pkid =  new Integer(0);
 		try {
 			/*String values = getValuesInString(itmObj);
 			String query = "INSERT INTO " + TABLE_NAME + " (" + FIELDS_NO_PKID + ") VALUES (" + values + ")";
@@ -185,10 +186,12 @@ public class Item {
 			query += ")";
 			Item itm = new Item();
 			itm.insertObjectToDb(query, itmObj);
+			pkid = Utilities.getLastPkid(TABLE_NAME);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			throw ex;
 		}
+		return pkid;
 	}
 	private static String getValuesInString(Item itmObj) {
 		String values = "";

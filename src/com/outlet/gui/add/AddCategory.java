@@ -153,7 +153,7 @@ public class AddCategory extends JFrame {
 				cat.setCategoryCode(textField_1.getText());
 				cat.setCategoryDesc(textField_2.getText());
 				try {
-					Category.setObject(cat);
+					new Category().setObject(cat);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

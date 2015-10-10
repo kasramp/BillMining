@@ -189,7 +189,7 @@ public class AddBill extends JFrame {
 				Company oneComp = getCompany(comboBox);
 				if(oneComp != null) {
 					comboBox_1.removeAllItems();
-					List<Outlet> lstOutlet = Outlet.getObjects("company_pkid = " + oneComp.getPkid());
+					List<Outlet> lstOutlet = new Outlet().getObjects("company_pkid = " + oneComp.getPkid());
 					if(lstOutlet != null && !lstOutlet.isEmpty() && lstOutlet.size()>0) {
 						for(int i=0;i<lstOutlet.size();i++) {
 							Outlet oneOutlet = lstOutlet.get(i);
@@ -391,7 +391,7 @@ public class AddBill extends JFrame {
 				    DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 				    String reportDate = df.format(selectedDate);
 					bill.setDateCreated(Utilities.getTime(reportDate));
-					Integer indexPkid = BillIndex.setObject(bill);
+					Integer indexPkid = new BillIndex().setObject(bill);
 					//for loop JTable
 					for(int i=0;i<tableModel.getRowCount();i++) {
 						BillItem billItm = new BillItem();
@@ -416,7 +416,7 @@ public class AddBill extends JFrame {
 							qty = new Integer(0);
 						}
 						billItm.setQty(qty);
-						BillItem.setObject(billItm); 
+						new BillItem().setObject(billItm); 
 					}
 					lblNewLabel.setText("Bill Issued Successfully!");
 					reset();
@@ -635,12 +635,12 @@ public class AddBill extends JFrame {
 		
 	}
 	public void loadCompany() {
-		List<Company> comp = Company.getObjects("1=1 ORDER BY PKID");
+		List<Company> comp = new Company().getObjects("1=1 ORDER BY PKID");
 		if(comp != null && !comp.isEmpty()) {
 			comboBox.removeAllItems();
 			for(int i=0;i<comp.size();i++) {
 				Company oneComp = comp.get(i);
-				if(Outlet.getObjects("company_pkid = " + oneComp.getPkid()).size() > 0) {
+				if(new Outlet().getObjects("company_pkid = " + oneComp.getPkid()).size() > 0) {
 					comboBox.addItem(oneComp.getCompanyName() + " (" + oneComp.getCompanyCode() + ")");
 					if(Utilities.isNullOrEmpty(defaultCompanyValue)) {
 						defaultCompanyValue = oneComp.getCompanyName() + " (" + oneComp.getCompanyCode() + ")";
@@ -652,7 +652,7 @@ public class AddBill extends JFrame {
 	public void loadOutlet() {
 		comboBox_1.removeAllItems();
 		Company oneComp = getCompany(comboBox);
-		List<Outlet> lstOutlet = Outlet.getObjects("company_pkid = " + oneComp.getPkid());
+		List<Outlet> lstOutlet = new Outlet().getObjects("company_pkid = " + oneComp.getPkid());
 		if(lstOutlet != null && !lstOutlet.isEmpty() && lstOutlet.size()>0) {
 			comboBox_1.removeAllItems();
 			for(int i=0;i<lstOutlet.size();i++) {

@@ -210,7 +210,7 @@ public class Utilities
 				}
 				if(hasPkid) {
 					if(categoryConvert) {
-						Category cat = Category.getObject(itm.getCategoryId());
+						Category cat = new Category().getObject(itm.getCategoryId());
 						csvString[0] += itm.getItemCode() + "," + itm.getItemName() + "," +itm.getMaCost() + 
 						"," + cat.getCategoryName() + "(" + cat.getCategoryCode() + ")";
 					} else {
@@ -220,7 +220,7 @@ public class Utilities
 					//csvString[0] += cat.getCategoryCode() + "," + cat.getCategoryName() + "," + cat.getCategoryDesc();
 				} else {
 					if(categoryConvert) {
-						Category cat = Category.getObject(itm.getCategoryId());
+						Category cat = new Category().getObject(itm.getCategoryId());
 						csvString[0] = itm.getItemCode() + "," + itm.getItemName() + "," +itm.getMaCost() + 
 						"," + cat.getCategoryName() + "(" + cat.getCategoryCode() + ")";
 					} else {
@@ -246,7 +246,7 @@ public class Utilities
 					}
 					if(hasPkid) {
 						if(companyConvert) {
-							Company comp = Company.getObject(outlet.getCompanyPkid());
+							Company comp = new Company().getObject(outlet.getCompanyPkid());
 							csvString[0] += outlet.getOutletCode() + "," + outlet.getOutletName()
 							+ "," + outlet.getOutletAddress() + "," + comp.getCompanyName() + " ("
 							+ comp.getCompanyCode() + ")," + outlet.getDateCreated();
@@ -257,7 +257,7 @@ public class Utilities
 						}
 					} else {
 						if(companyConvert) {
-							Company comp = Company.getObject(outlet.getCompanyPkid());
+							Company comp = new Company().getObject(outlet.getCompanyPkid());
 							csvString[0] = outlet.getOutletCode() + "," + outlet.getOutletName()
 							+ "," + outlet.getOutletAddress() + "," + comp.getCompanyName() + " ("
 							+ comp.getCompanyCode() + ")," + outlet.getDateCreated();

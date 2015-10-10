@@ -23,7 +23,7 @@ import java.util.TreeMap;
 
 import com.outlet.common.Utilities;
 
-public class Category {
+public class Category implements Bean<Category>{
 	
 	public static final String TABLE_NAME = "category";
 	public static final String FIELDS = "pkid, category_code, category_name, category_description";
@@ -84,9 +84,9 @@ public class Category {
 		}
 		return cat;
 	}*/
-	public static Category getObject(Integer pkid) {
+	public Category getObject(Integer pkid) {
 		try {
-			List<Category> catLst = Category.getObjects("pkid = " + pkid);
+			List<Category> catLst = new Category().getObjects("pkid = " + pkid);
 			if(catLst != null && ! catLst.isEmpty()) {
 				return catLst.get(0);
 			}
@@ -97,7 +97,7 @@ public class Category {
 	}
 	public static Category getObject(String categoryCode) {
 		try {
-			List<Category> catLst = Category.getObjects("category_code = '" + categoryCode + "'");
+			List<Category> catLst = new Category().getObjects("category_code = '" + categoryCode + "'");
 			if(catLst != null && ! catLst.isEmpty()) {
 				return catLst.get(0);
 			}
@@ -106,7 +106,7 @@ public class Category {
 		}
 		return null;
 	}
-	public static List<Category> getObjects(String conditions)
+	public List<Category> getObjects(String conditions)
 	{
 		List<Category> rtnResult = new ArrayList<Category>();
 		try {
@@ -139,15 +139,18 @@ public class Category {
 		}
 		return cat;
 	}
-	public static void setObject(Category cat) throws Exception{
+	public Integer setObject(Category cat) throws Exception{
+		Integer pkid = new Integer(0);
 		try {
 			String values = getValuesInString(cat);
 			String query = "INSERT INTO " + TABLE_NAME + " (" + FIELDS_NO_PKID + ") VALUES (" + values + ")";
 			Utilities.executeSqlQuery(query);
+			pkid = Utilities.getLastPkid(TABLE_NAME);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			throw ex;
 		}
+		return pkid;
 	}
 	private static String getValuesInString(Category cat) {
 		String values = "";

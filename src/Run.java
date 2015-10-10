@@ -38,7 +38,7 @@ public class Run {
 		itmObj.setMaCost(new BigDecimal(150));
 		itmObj.setCategoryId(new Integer(12));
 		try {
-			Item.setObject(itmObj);
+			new Item().setObject(itmObj);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

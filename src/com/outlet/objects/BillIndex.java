@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 import com.outlet.common.Utilities;
-public class BillIndex {
+public class BillIndex implements Bean<BillIndex>{
 
 	public static final String TABLE_NAME = "bill_index";
 	public static final String FIELDS = "pkid, company_pkid, outlet_pkid, bill_amount, gst_amount, total_amount, date_created";
@@ -90,7 +90,7 @@ public class BillIndex {
 		this.dateCreated = dateCreated;
 	}
 	// Implementing Nut
-	public static BillIndex getObject(Integer pkid)
+	public BillIndex getObject(Integer pkid)
 	{
 		BillIndex bill = new BillIndex();
 		try {
@@ -101,13 +101,13 @@ public class BillIndex {
 		result = Utilities.executeDirectSelectSql(query, FIELDS);
 		for(int i=0;i<result.size();i++) {
 			TreeMap oneRow = result.get(i);
-			/*bill.pkid = (Integer) oneRow.get("pkid");
+			bill.pkid = (Integer) oneRow.get("pkid");
 			bill.companyPkid = (Integer) oneRow.get("company_pkid");
 			bill.outletPkid = (Integer) oneRow.get("outlet_pkid");
 			bill.billAmount = new BigDecimal((Double)oneRow.get("bill_amount"));
 			bill.gstAmount = new BigDecimal((Double) oneRow.get("gst_amount"));
 			bill.totalAmount = new BigDecimal((Double) oneRow.get("total_amount"));
-			bill.dateCreated = Utilities.getTime((String)oneRow.get("date_created"));*/
+			bill.dateCreated = Utilities.getTime((String)oneRow.get("date_created"));
 			bill = mapValues(oneRow);
 		}
 		} catch(Exception ex) {
@@ -115,7 +115,7 @@ public class BillIndex {
 		}
 		return bill;
 	}
-	public static List<BillIndex> getObjects(String conditions)
+	public List<BillIndex> getObjects(String conditions)
 	{
 		List<BillIndex> rtnResult = new ArrayList<BillIndex>();
 		try {
@@ -163,7 +163,7 @@ public class BillIndex {
 		}
 		return bill;
 	}
-	public static Integer setObject(BillIndex billObj) throws Exception{
+	public Integer setObject(BillIndex billObj) throws Exception{
 		Integer pkid = new Integer(0);
 		try {
 			String values = getValuesInString(billObj);
@@ -190,5 +190,6 @@ public class BillIndex {
 		}
 		return values;
 	}
+
 	
 }

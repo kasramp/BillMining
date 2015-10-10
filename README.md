@@ -13,11 +13,11 @@ The program works out the box so smoothly and all necessary dependencies have be
 You just need to compile the code and run the executable jar file.
 
 ## How to use  
-BillMining is cross platform and can be executed in Linux, Windows, Mac OS X flowlessly. You either need to download Eclipse or run the build.xml file like this and run the program.
+BillMining is cross platform and can be executed in Linux, Windows, Mac OS X flowlessly. You either need to download Eclipse or maven and run the program.
 
-	$ ant
-	$ cd JarFile  
-	$ java -jar BillMining.jar
+	$ maven clean install
+	$ cd target  
+	$ java -jar BillMining-0.0.1.jar
 
 ##Technical description
 The project sturucture is like following,
@@ -30,8 +30,7 @@ The project sturucture is like following,
  * com/outlet/gui --> gui related files (Add for add functions [pages], Report for reporting functions [pages], MainPage --> First page).
  * com/outlet/objects --> mapping Sql table to java objects
 * /sql --> all sql files (tables) for database
-* /lib --> necessary libraries
-* /JarFile --> project executable jar file
+* /target --> project executable jar file
 * /doc --> project documentation
 * /bin --> compiled .class files
 

@@ -24,7 +24,7 @@ import java.util.TreeMap;
 
 import com.outlet.common.Utilities;
 
-public class Company {
+public class Company implements Bean<Company>{
 	public static final String TABLE_NAME = "company";
 	public static final String FIELDS = "pkid, company_name, company_code, date_created";
 	public static final String HEADER_FIELDS = "No #, Pkid, Company Code, Company Name, Creation Date";
@@ -84,9 +84,9 @@ public class Company {
 		}
 		return comp;
 	}*/
-	public static Company getObject(Integer pkid) {
+	public Company getObject(Integer pkid) {
 		try {
-			List<Company> companyLst = Company.getObjects("pkid = " + pkid);
+			List<Company> companyLst = new Company().getObjects("pkid = " + pkid);
 			if(companyLst != null && ! companyLst.isEmpty()) {
 				return companyLst.get(0);
 			}
@@ -97,7 +97,7 @@ public class Company {
 	}
 	public static Company getObject(String companyCode) {
 		try {
-			List<Company> companyLst = Company.getObjects("company_code = '" + companyCode + "'");
+			List<Company> companyLst = new Company().getObjects("company_code = '" + companyCode + "'");
 			if(companyLst != null && ! companyLst.isEmpty()) {
 				return companyLst.get(0);
 			}
@@ -106,7 +106,7 @@ public class Company {
 		}
 		return null;
 	}
-	public static List<Company> getObjects(String conditions)
+	public List<Company> getObjects(String conditions)
 	{
 		List<Company> rtnResult = new ArrayList<Company>();
 		try {
@@ -139,15 +139,18 @@ public class Company {
 		}
 		return comp;
 	}
-	public static void setObject(Company comp) throws Exception {
+	public Integer setObject(Company comp) throws Exception {
+		Integer pkid = new Integer(0);
 		try {
 			String values = getValuesInString(comp);
 			String query = "INSERT INTO " + TABLE_NAME + " (" + FIELDS_NO_PKID + ") VALUES (" + values + ")";
 			Utilities.executeSqlQuery(query);
+			pkid = Utilities.getLastPkid(TABLE_NAME);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			throw ex;
 		}
+		return pkid;
 	}
 	private static String getValuesInString(Company comp) {
 		String values = "";

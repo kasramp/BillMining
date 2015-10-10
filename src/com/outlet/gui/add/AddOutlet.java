@@ -194,7 +194,7 @@ public class AddOutlet extends JFrame {
 				outlet.setOutletCode(textField_1.getText());
 				outlet.setOutletName(textField.getText());
 				try {
-					Outlet.setObject(outlet);
+					new Outlet().setObject(outlet);
 				} catch(Exception ex) {
 					ex.printStackTrace();
 					label.setText("Failed to add outlet!");
@@ -310,7 +310,7 @@ public class AddOutlet extends JFrame {
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 		
-		List<Company> comp = Company.getObjects("1=1 ORDER BY PKID");
+		List<Company> comp = new Company().getObjects("1=1 ORDER BY PKID");
 		if(comp != null && !comp.isEmpty()) {
 			for(int i=0;i<comp.size();i++) {
 				Company oneComp = comp.get(i);
@@ -326,7 +326,7 @@ public class AddOutlet extends JFrame {
 		}
 		Company comp = getCompany(comboBox);
 		if(comp != null) {
-			List<Outlet> outletResult = Outlet.getObjects("company_pkid = " + comp.getPkid()
+			List<Outlet> outletResult = new Outlet().getObjects("company_pkid = " + comp.getPkid()
 			+ " AND outlet_code ='" + outletCode + "'");
 			if(!outletResult.isEmpty()) {
 				textField_1.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.red));

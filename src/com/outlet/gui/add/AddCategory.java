@@ -250,7 +250,7 @@ public class AddCategory extends JFrame {
 	}
 	private void checkDuplicate() {
 		//List<Category> rtnResult = Category.getObjects("category_code = '" + textField_1.getText() + "'");
-		Category cat = Category.getObject(textField_1.getText());
+		Category cat = new Category().getObject(textField_1.getText());
 		if(cat != null) {
 			textField_1.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.red));
 			btnNewButton.setEnabled(false);

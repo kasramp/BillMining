@@ -97,6 +97,8 @@ public class BillItem implements Bean<BillItem>{
 		}
 		return billItm;
 	}
+	// TODO implement this method later
+	public BillItem getObject(String obj){ return null;}
 	public List<BillItem> getObjects(String conditions) {
 		List<BillItem> rtnResult = new ArrayList<BillItem>();
 		try {

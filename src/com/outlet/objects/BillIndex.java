@@ -115,6 +115,8 @@ public class BillIndex implements Bean<BillIndex>{
 		}
 		return bill;
 	}
+	// TODO implement this method later
+	public BillIndex getObject(String obj){ return null;}
 	public List<BillIndex> getObjects(String conditions)
 	{
 		List<BillIndex> rtnResult = new ArrayList<BillIndex>();

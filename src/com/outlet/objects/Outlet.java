@@ -129,7 +129,7 @@ public class Outlet implements Bean<Outlet>{
 		}
 		return null;
 	}
-	public static Outlet getObject(String outletCode) {
+	public Outlet getObject(String outletCode) {
 		try {
 			List<Outlet> outletLst = new Outlet().getObjects("outlet_code = '" + outletCode + "'");
 			if(outletLst != null && ! outletLst.isEmpty()) {

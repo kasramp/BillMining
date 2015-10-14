@@ -347,7 +347,7 @@ public class AddOutlet extends JFrame {
 		/*List<Company> rtnResult = Company.getObjects("company_code = '" + value + "'");
 		if(!rtnResult.isEmpty()) {
 			Company comp = rtnResult.get(0);*/
-		Company comp = Company.getObject(value);
+		Company comp = new Company().getObject(value);
 		return comp;
 	}
 	private void reset() {

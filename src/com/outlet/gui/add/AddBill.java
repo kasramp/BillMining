@@ -249,7 +249,7 @@ public class AddBill extends JFrame {
 		        			itemCost = new BigDecimal(0);
 		        		}
 		        		
-		        		Item itm = Item.getObject(itemCode);
+		        		Item itm = new Item().getObject(itemCode);
 		        		oneDocRow.setItemPKid(itm.getPkid());
 		        		oneDocRow.setItemCode(itm.getItemCode());
 		        		oneDocRow.setItemName(itm.getItemName());
@@ -384,7 +384,7 @@ public class AddBill extends JFrame {
 					String value = comboBox_1.getSelectedItem().toString();
 					String[] valArr = value.split("[(]");
 					value = valArr[1].substring(0,valArr[1].length()-1);
-					Outlet outlet = Outlet.getObject(value);
+					Outlet outlet = new Outlet().getObject(value);
 					bill.setCompanyPkid(outlet.getCompanyPkid());
 					bill.setOutletPkid(outlet.getPkid());
 					Date selectedDate = (Date) datePicker.getModel().getValue();
@@ -398,7 +398,7 @@ public class AddBill extends JFrame {
 						billItm.setBillIndexPkid(indexPkid);
 						billItm.setGstAmount(new BigDecimal(0));
 						String itemCode = table.getValueAt(i, 1).toString();
-						Item itm = Item.getObject(itemCode);
+						Item itm = new Item().getObject(itemCode);
 						billItm.setItemId(itm.getPkid());
 						String strPrice = table.getValueAt(i, 4).toString();
 						BigDecimal price = new BigDecimal(0);
@@ -513,7 +513,7 @@ public class AddBill extends JFrame {
 		/*List<Company> rtnResult = Company.getObjects("company_code = '" + value + "'");
 		if(!rtnResult.isEmpty()) {
 			Company comp = rtnResult.get(0);*/
-		Company comp = Company.getObject(value);
+		Company comp = new Company().getObject(value);
 		return comp;
 	}
 	private void openItemSearch(){

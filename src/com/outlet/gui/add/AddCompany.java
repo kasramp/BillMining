@@ -255,7 +255,7 @@ public class AddCompany extends JFrame {
 	}
 	private void checkDuplicate() {
 		//List<Company> rtnResult = Company.getObjects("company_code = '" + textField_3.getText() + "'");
-		Company comp = Company.getObject(textField_3.getText());
+		Company comp = new Company().getObject(textField_3.getText());
 		if(comp != null) {
 			textField_3.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.red));
 			label.setText("Duplicate Company Code!");

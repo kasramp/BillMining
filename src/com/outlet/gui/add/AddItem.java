@@ -333,7 +333,7 @@ public class AddItem extends JFrame {
 				String value = comboBox.getSelectedItem().toString();
 				String[] valArr = value.split("[(]");
 				value = valArr[1].substring(0,valArr[1].length()-1);
-				Category cat = Category.getObject(value);
+				Category cat = new Category().getObject(value);
 				/*List<Category> rtnResult = Category.getObjects("category_code = '" + value + "'");
 				if(!rtnResult.isEmpty()) {
 					Category cat = rtnResult.get(0);*/
@@ -380,7 +380,7 @@ public class AddItem extends JFrame {
 	}
 	private void checkDuplicate() {
 		//List<Item> rtnResult = Item.getObjects("item_code = '" + textField_4.getText() + "'");
-		Item itm = Item.getObject(textField_4.getText());
+		Item itm = new Item().getObject(textField_4.getText());
 		if(itm != null) {
 			textField_4.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.red));
 			label.setText("Duplicate Item Code!");

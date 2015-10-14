@@ -95,7 +95,7 @@ public class Category implements Bean<Category>{
 		}
 		return null;
 	}
-	public static Category getObject(String categoryCode) {
+	public Category getObject(String categoryCode) {
 		try {
 			List<Category> catLst = new Category().getObjects("category_code = '" + categoryCode + "'");
 			if(catLst != null && ! catLst.isEmpty()) {

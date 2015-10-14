@@ -113,7 +113,7 @@ public class Item implements Bean<Item> {
 		}
 		return null;
 	}
-	public static Item getObject(String itemCode) {
+	public Item getObject(String itemCode) {
 		try {
 			List<Item> itemtLst = new Item().getObjects("item_code = '" + itemCode + "'");
 			if(itemtLst != null && ! itemtLst.isEmpty()) {

@@ -95,7 +95,7 @@ public class Company implements Bean<Company>{
 		}
 		return null;
 	}
-	public static Company getObject(String companyCode) {
+	public Company getObject(String companyCode) {
 		try {
 			List<Company> companyLst = new Company().getObjects("company_code = '" + companyCode + "'");
 			if(companyLst != null && ! companyLst.isEmpty()) {

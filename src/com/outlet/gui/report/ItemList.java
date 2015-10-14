@@ -195,7 +195,7 @@ public class ItemList extends JFrame {
 							}
 							if("Image Link...".equalsIgnoreCase(val) && !val.isEmpty()) {
 								String itemCode = table.getValueAt(row, 2).toString();
-								Item itm = Item.getObject(itemCode);
+								Item itm = new Item().getObject(itemCode);
 								byte[] image = itm.getImage();
 								viewImage = new ViewImage(ItemList.this,image);
 								viewImage.show();

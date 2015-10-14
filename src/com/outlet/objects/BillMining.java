@@ -99,6 +99,8 @@ public class BillMining implements Bean<BillMining> {
 		}
 		return bm;
 	}
+	// TODO Implement this method later
+	public BillMining getObject(String obj){ return null;}
 	public List<BillMining> getObjects(String conditions)
 	{
 		List<BillMining> rtnResult = new ArrayList<BillMining>();

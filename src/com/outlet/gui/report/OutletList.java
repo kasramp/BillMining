@@ -82,7 +82,7 @@ public class OutletList extends JFrame {
 		
 		String[] columns = Outlet.HEADER_FIELDS.split(",");
 		DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
-		List<Outlet> lists = new Outlet().getObjects("1=1 ORDER BY PKID");
+		List<Outlet> lists = new Outlet().getObjects();
 		for(int i=0;i<lists.size();i++) {
 			Outlet outlet = lists.get(i);
 			String[] data = Utilities.convertToCSV(outlet,",","true","convertCompany");

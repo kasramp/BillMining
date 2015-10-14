@@ -33,12 +33,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.outlet.db.JDBCConnection;
 import com.outlet.objects.BillMining;
 import com.outlet.objects.Category;
 import com.outlet.objects.Company;
 import com.outlet.objects.Item;
 import com.outlet.objects.Outlet;
+
 
 public class Utilities
 {
@@ -83,9 +85,9 @@ public class Utilities
 	    }
 	    return sb.toString();
 	}
-	public static void executeSqlQuery(String sqlStatement) throws Exception
+	/*public static void executeSqlQuery(String sqlStatement) throws Exception
 	{
-		Connection connection = null;
+		JdbcConnectionSource connection = null;
 		connection = JDBCConnection.getConnection();
 		
 		Statement statement = null;
@@ -94,14 +96,14 @@ public class Utilities
 		{
 			statement = connection.createStatement();
 			statement.executeUpdate(sqlStatement);
-			/*statement.executeUpdate(sqlStatement, Statement.RETURN_GENERATED_KEYS);
+			statement.executeUpdate(sqlStatement, Statement.RETURN_GENERATED_KEYS);
 			ResultSet rs = statement.getGeneratedKeys();
 			if(rs.next()) {
 				createdPkid = new Integer (rs.getInt(1));
 				return createdPkid;
 			} else {
 				return createdPkid; 
-			}*/
+			}
 		}
 		catch(Exception ex)
 		{
@@ -121,8 +123,8 @@ public class Utilities
 				throw ex;
 			}
 		}
-	}
-	public static Integer getLastPkid(String tableName) {
+	}*/
+	/*public static Integer getLastPkid(String tableName) {
 		try {
 			ArrayList<LinkedHashMap> rst = (ArrayList<LinkedHashMap>) 
 					Utilities.executeDirectSelectSql("SELECT MAX(pkid) AS last_row From " + tableName);
@@ -133,7 +135,7 @@ public class Utilities
 			ex.printStackTrace();
 			return new Integer(-1);
 		}
-	}
+	}*/
 	public static <T> String[] convertToCSV(T obj, String... opts)
 	{
 		String delimiter = ",";
@@ -324,14 +326,14 @@ public class Utilities
 		}
 		return keyValue;
 	}*/
-	public static boolean executeInsertSql(String tableName, TreeMap<String,String> contents)
+	/*public static boolean executeInsertSql(String tableName, TreeMap<String,String> contents)
 	{
 		Connection connection = null;
 		connection = JDBCConnection.getConnection();
 		Statement statement = null;
 		boolean isSuccessful = false;
 		//String[] keyValue = new String[2];
-		String[] keyValue  =   convertToCSV(contents);//mapToKeyValueCSV(contents/*,keyValue*/);
+		String[] keyValue  =   convertToCSV(contents);
 		String sqlStatement = "INSERT INTO " + tableName;
 		sqlStatement += " (" + keyValue[0] + ")";
 		sqlStatement += " VALUES (" + keyValue[1] + ")";
@@ -360,15 +362,16 @@ public class Utilities
 		}
 		return isSuccessful;
 	}
+	*/
 	// Execute Update statement
-	public static boolean executeUpdateSql(String tableName, TreeMap<String,String> contents, String condition)
+	/*public static boolean executeUpdateSql(String tableName, TreeMap<String,String> contents, String condition)
 	{
 		Connection connection = null;
 		connection = JDBCConnection.getConnection();
 		Statement statement = null;
 		boolean isSuccessful = false;
 		//String[] keyValue = new String[2];
-		String[] keyValue  =   convertToCSV(contents);//mapToKeyValueCSV(contents/*,keyValue*/);
+		String[] keyValue  =   convertToCSV(contents);
 		String sqlStatement = "UPDATE " + tableName + " SET ";
 		String[] columns = keyValue[0].split(",");
 		String[] values = keyValue[1].split(",");
@@ -411,6 +414,11 @@ public class Utilities
 			}
 		}
 		return isSuccessful;
+	}*/
+	/*public static <T> List<T> executeDirectSelectSql(String query, Class<T> className)
+	{
+		List<T> rst = new ArrayList<T>();
+		return rst;
 	}
 	public static List<TreeMap> executeDirectSelectSql(String query, String... requiredFields)
 	{
@@ -426,6 +434,7 @@ public class Utilities
 			String[] strLength = requiredFields[0].split(",");
 			for(int i=0;i<strLength.length;i++) {
 				strLength[i] = strLength[i].replaceAll(" ","");
+				strLength[i] = strLength[i].trim();
 			}
 			statement  = connection.createStatement();
 			rs = statement.executeQuery(query);
@@ -436,10 +445,10 @@ public class Utilities
 				for(int i=0;i<strLength.length;i++)
 				{
 					//oneRow[i] = rs.getObject(strLength[i]);
-/*					if("image".equalsIgnoreCase(strLength[i])){
+					if("image".equalsIgnoreCase(strLength[i])){
 						oneRow.put(strLength[i],rs.getBytes(strLength[i]));
 					}else {
-*/						oneRow.put(strLength[i], rs.getObject(strLength[i]));
+						oneRow.put(strLength[i], rs.getObject(strLength[i]));
 //					}
 				}
 				result.add(oneRow);
@@ -463,14 +472,12 @@ public class Utilities
 		}
 		return result;
 		
-	}
+	}*/
 	public static Collection executeDirectSelectSql(String query) throws Exception{
-		Connection connection = null;
-		connection = JDBCConnection.getConnection();
 		Statement statement = null;
 		ResultSet rs = null;
 		Collection result = new ArrayList();
-		try {
+		try(Connection connection = JDBCConnection.getJdbcConnection()) {
 			statement  = connection.createStatement();
 			rs = statement.executeQuery(query);
 			while (rs.next()) 

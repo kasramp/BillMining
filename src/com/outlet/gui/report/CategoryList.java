@@ -84,7 +84,7 @@ public class CategoryList extends JFrame {
 		setContentPane(contentPane);
 		String[] columns = Category.HEADER_FIELDS.split(",");
 		DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
-		List<Category> lists = new Category().getObjects("1=1 ORDER BY PKID");
+		List<Category> lists = new Category().getObjects();
 		for(int i=0;i<lists.size();i++) {
 			Category cat = lists.get(i);
 			String[] data = Utilities.convertToCSV(cat,",","true");

@@ -17,29 +17,45 @@
 
 package com.outlet.objects;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.outlet.common.Utilities;
+import com.outlet.db.DbInit;
+import com.outlet.db.JDBCConnection;
 
+@DatabaseTable(tableName = "category")
 public class Category implements Bean<Category>{
 	
 	public static final String TABLE_NAME = "category";
 	public static final String FIELDS = "pkid, category_code, category_name, category_description";
 	public static final String HEADER_FIELDS = "No #, Pkid, Category Code, Category Name, Category Description";
 	public static final String FIELDS_NO_PKID = FIELDS.substring(5);
+	@DatabaseField(generatedId = true, columnName = "pkid")
 	private Integer pkid;
+	@DatabaseField(columnName = "category_code")
 	private String categoryCode;
+	@DatabaseField(columnName = "category_name")
 	private String categoryName;
+	@DatabaseField(columnName = "category_description")
 	private String categoryDesc;
 	////////////////////////////
+	private Dao<Category, Integer> categoryDao;
+
 	public Category()
 	{
 		this.pkid = new Integer(0);
 		this.categoryCode = "";
 		this.categoryName = "";
 		this.categoryDesc = "";
+		this.createDao();
 	}
 	public Integer getPkid() {
 		return pkid;
@@ -84,7 +100,7 @@ public class Category implements Bean<Category>{
 		}
 		return cat;
 	}*/
-	public Category getObject(Integer pkid) {
+	/*public Category getObject(Integer pkid) {
 		try {
 			List<Category> catLst = new Category().getObjects("pkid = " + pkid);
 			if(catLst != null && ! catLst.isEmpty()) {
@@ -94,8 +110,8 @@ public class Category implements Bean<Category>{
 			ex.printStackTrace();
 		}
 		return null;
-	}
-	public Category getObject(String categoryCode) {
+	}*/
+	/*public Category getObject(String categoryCode) {
 		try {
 			List<Category> catLst = new Category().getObjects("category_code = '" + categoryCode + "'");
 			if(catLst != null && ! catLst.isEmpty()) {
@@ -105,8 +121,8 @@ public class Category implements Bean<Category>{
 			ex.printStackTrace();
 		}
 		return null;
-	}
-	public List<Category> getObjects(String conditions)
+	}*/
+	/*public List<Category> getObjects(String conditions)
 	{
 		List<Category> rtnResult = new ArrayList<Category>();
 		try {
@@ -123,7 +139,8 @@ public class Category implements Bean<Category>{
 			ex.printStackTrace();
 		}
 		return rtnResult;
-	}
+	}*/
+	
 	private static Category mapValues(TreeMap oneRow) {
 		Category cat = new Category();
 		try {
@@ -139,7 +156,7 @@ public class Category implements Bean<Category>{
 		}
 		return cat;
 	}
-	public Integer setObject(Category cat) throws Exception{
+	/*public Integer setObject(Category cat) throws Exception{
 		Integer pkid = new Integer(0);
 		try {
 			String values = getValuesInString(cat);
@@ -151,7 +168,7 @@ public class Category implements Bean<Category>{
 			throw ex;
 		}
 		return pkid;
-	}
+	}*/
 	private static String getValuesInString(Category cat) {
 		String values = "";
 		try {
@@ -162,6 +179,68 @@ public class Category implements Bean<Category>{
 			ex.printStackTrace();
 		}
 		return values;
+	}
+	public Category getObject(Integer pkid) {
+		try {
+			return this.categoryDao.queryForId(pkid);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	public Category getObject(String categoryCode) {
+		try {
+			List<Category> cats = this.categoryDao.queryForEq("category_code", categoryCode); 
+			if(cats != null && !cats.isEmpty()) {
+				return cats.get(0);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	public List<Category> getObjects(Map<String,Object> conditions) {
+		List<Category> rtnResult = new ArrayList<Category>();
+		try {
+			rtnResult = this.categoryDao.queryForFieldValues(conditions);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return rtnResult;
+	}
+	public List<Category> getObjects() {
+		try {
+			return this.categoryDao.queryForAll();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public Integer setObject(Category category) throws Exception{
+
+		try {
+			if (category != null) {
+				if(this.categoryDao.isTableExists()) {
+					this.categoryDao.create(category);
+					return this.categoryDao.extractId(category);
+				} else {
+					new DbInit().createTables();
+					this.categoryDao.create(category);
+					return this.categoryDao.extractId(category);
+				}
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	private void createDao()
+	{
+		try {
+			this.categoryDao = DaoManager.createDao(JDBCConnection.getConnection(), Category.class);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 	
 }

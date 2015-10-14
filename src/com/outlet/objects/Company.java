@@ -17,28 +17,44 @@
 
 package com.outlet.objects;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.outlet.common.Utilities;
-
+import com.outlet.db.DbInit;
+import com.outlet.db.JDBCConnection;
+@DatabaseTable(tableName = "company")
 public class Company implements Bean<Company>{
 	public static final String TABLE_NAME = "company";
 	public static final String FIELDS = "pkid, company_name, company_code, date_created";
 	public static final String HEADER_FIELDS = "No #, Pkid, Company Code, Company Name, Creation Date";
 	public static final String FIELDS_NO_PKID = FIELDS.substring(5);
+	@DatabaseField(generatedId = true, columnName = "pkid")
 	private Integer pkid;
+	@DatabaseField(columnName = "company_name")
 	private String companyName;
+	@DatabaseField(columnName = "company_code")
 	private String companyCode;
+	@DatabaseField(columnName = "date_created", dataType = DataType.TIME_STAMP)
 	private Timestamp dateCreated;
+	
+	private Dao<Company, Integer> companyDao;
 	//////////////////////////////
 	public Company() {
 		this.pkid = new Integer(0);
 		this.companyName = "";
 		this.companyCode = "";
 		this.dateCreated = Utilities.getCurrentTime();
+		this.createDao();
 	}
 	public Integer getPkid() {
 		return pkid;
@@ -84,7 +100,7 @@ public class Company implements Bean<Company>{
 		}
 		return comp;
 	}*/
-	public Company getObject(Integer pkid) {
+	/*public Company getObject(Integer pkid) {
 		try {
 			List<Company> companyLst = new Company().getObjects("pkid = " + pkid);
 			if(companyLst != null && ! companyLst.isEmpty()) {
@@ -123,6 +139,42 @@ public class Company implements Bean<Company>{
 			ex.printStackTrace();
 		}
 		return rtnResult;
+	}*/
+	public Company getObject(Integer pkid) {
+		try {
+			return this.companyDao.queryForId(pkid);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	public Company getObject(String companyCode) {
+		try {
+			List<Company> companyLst = this.companyDao.queryForEq("company_code", companyCode);
+			if(companyLst != null && !companyLst.isEmpty()) {
+				return companyLst.get(0);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	public List<Company> getObjects(Map<String,Object> conditions) {
+		List<Company> rtnResult = new ArrayList<Company>();
+		try {
+			rtnResult = this.companyDao.queryForFieldValues(conditions);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return rtnResult;
+	}
+	public List<Company> getObjects() {
+		try {
+			return this.companyDao.queryForAll();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	private static Company mapValues(TreeMap oneRow) {
 		Company comp = new Company();
@@ -139,7 +191,25 @@ public class Company implements Bean<Company>{
 		}
 		return comp;
 	}
-	public Integer setObject(Company comp) throws Exception {
+	public Integer setObject(Company company) throws Exception{
+
+		try {
+			if (company != null) {
+				if(this.companyDao.isTableExists()) {
+					this.companyDao.create(company);
+					return this.companyDao.extractId(company);
+				} else {
+					new DbInit().createTables();
+					this.companyDao.create(company);
+					return this.companyDao.extractId(company);
+				}
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	/*public Integer setObject(Company comp) throws Exception {
 		Integer pkid = new Integer(0);
 		try {
 			String values = getValuesInString(comp);
@@ -151,6 +221,14 @@ public class Company implements Bean<Company>{
 			throw ex;
 		}
 		return pkid;
+	}*/
+	private void createDao()
+	{
+		try {
+			this.companyDao = DaoManager.createDao(JDBCConnection.getConnection(), Company.class);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 	private static String getValuesInString(Company comp) {
 		String values = "";

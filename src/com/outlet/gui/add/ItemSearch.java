@@ -28,6 +28,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -112,9 +114,12 @@ public class ItemSearch extends JFrame {
 					return;
 				} else {
 					String keyword = textField.getText();
-					String condition = "item_name LIKE '%" + keyword + "%' OR item_code LIKE '%" 
+					/*String condition = "item_name LIKE '%" + keyword + "%' OR item_code LIKE '%" 
 					+ keyword + "%' ORDER BY PKID";
-					List<Item> lstItem = new Item().getObjects(condition);
+					Map<String,Object> conditions = new TreeMap<String,Object>();
+					conditions.put("item_name", keyword);*/
+					String[] conditions1 = {"LIKE", "item_name", "%" + keyword + "%", "OR", "LIKE", "item_code", "%" + keyword + "%"};
+					List<Item> lstItem = new Item().getObjectsByQuery(conditions1, "item_name", true);
 					if(lstItem == null || lstItem.isEmpty()){
 						for(int i=0;i<tableModel.getRowCount();i++)
 						{

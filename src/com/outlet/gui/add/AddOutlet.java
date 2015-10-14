@@ -33,7 +33,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -310,7 +312,7 @@ public class AddOutlet extends JFrame {
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 		
-		List<Company> comp = new Company().getObjects("1=1 ORDER BY PKID");
+		List<Company> comp = new Company().getObjects();
 		if(comp != null && !comp.isEmpty()) {
 			for(int i=0;i<comp.size();i++) {
 				Company oneComp = comp.get(i);
@@ -326,8 +328,10 @@ public class AddOutlet extends JFrame {
 		}
 		Company comp = getCompany(comboBox);
 		if(comp != null) {
-			List<Outlet> outletResult = new Outlet().getObjects("company_pkid = " + comp.getPkid()
-			+ " AND outlet_code ='" + outletCode + "'");
+			Map<String,Object> conditions = new TreeMap<String,Object>();
+			conditions.put("company_pkid", comp.getPkid());
+			conditions.put("outlet_code", outletCode);
+			List<Outlet> outletResult = new Outlet().getObjects(conditions);
 			if(!outletResult.isEmpty()) {
 				textField_1.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.red));
 				label.setText("Duplicate Outlet Code!");

@@ -36,7 +36,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -189,7 +191,9 @@ public class AddBill extends JFrame {
 				Company oneComp = getCompany(comboBox);
 				if(oneComp != null) {
 					comboBox_1.removeAllItems();
-					List<Outlet> lstOutlet = new Outlet().getObjects("company_pkid = " + oneComp.getPkid());
+					Map<String,Object> conditions = new TreeMap<String,Object>();
+					conditions.put("company_pkid", oneComp.getPkid());
+					List<Outlet> lstOutlet = new Outlet().getObjects(conditions);
 					if(lstOutlet != null && !lstOutlet.isEmpty() && lstOutlet.size()>0) {
 						for(int i=0;i<lstOutlet.size();i++) {
 							Outlet oneOutlet = lstOutlet.get(i);
@@ -635,12 +639,14 @@ public class AddBill extends JFrame {
 		
 	}
 	public void loadCompany() {
-		List<Company> comp = new Company().getObjects("1=1 ORDER BY PKID");
+		List<Company> comp = new Company().getObjects();
 		if(comp != null && !comp.isEmpty()) {
 			comboBox.removeAllItems();
 			for(int i=0;i<comp.size();i++) {
 				Company oneComp = comp.get(i);
-				if(new Outlet().getObjects("company_pkid = " + oneComp.getPkid()).size() > 0) {
+				Map<String,Object> conditions = new TreeMap<String,Object>();
+				conditions.put("company_pkid",oneComp.getPkid());
+				if(new Outlet().getObjects(conditions).size() > 0) {
 					comboBox.addItem(oneComp.getCompanyName() + " (" + oneComp.getCompanyCode() + ")");
 					if(Utilities.isNullOrEmpty(defaultCompanyValue)) {
 						defaultCompanyValue = oneComp.getCompanyName() + " (" + oneComp.getCompanyCode() + ")";
@@ -652,7 +658,9 @@ public class AddBill extends JFrame {
 	public void loadOutlet() {
 		comboBox_1.removeAllItems();
 		Company oneComp = getCompany(comboBox);
-		List<Outlet> lstOutlet = new Outlet().getObjects("company_pkid = " + oneComp.getPkid());
+		Map<String,Object> conditions = new TreeMap<String,Object>();
+		conditions.put("company_pkid",oneComp.getPkid());
+		List<Outlet> lstOutlet = new Outlet().getObjects(conditions);
 		if(lstOutlet != null && !lstOutlet.isEmpty() && lstOutlet.size()>0) {
 			comboBox_1.removeAllItems();
 			for(int i=0;i<lstOutlet.size();i++) {

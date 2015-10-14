@@ -105,7 +105,7 @@ public class ItemList extends JFrame {
 		        }
 		    }
 		};;
-		List<Item> lists = new Item().getObjects("1=1 ORDER BY PKID");
+		List<Item> lists = new Item().getObjects();
 		for(int i=0;i<lists.size();i++) {
 			Item item = lists.get(i);
 			Object[] obj = new Object[columns.length];

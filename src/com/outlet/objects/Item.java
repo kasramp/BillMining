@@ -20,24 +20,44 @@ package com.outlet.objects;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
+import com.j256.ormlite.table.DatabaseTable;
 import com.outlet.common.Utilities;
+import com.outlet.db.DbInit;
 import com.outlet.db.JDBCConnection;
 
+@DatabaseTable(tableName = "item")
 public class Item implements Bean<Item> {
 	public static final String TABLE_NAME = "item";
 	public static final String FIELDS = "pkid, item_code, item_name, ma_cost, category_id, image";
 	public static final String HEADER_FIELDS = "No #, Pkid, Item Code, Item Name, Ma Cost, Catrgory Name (Code), Image";
 	public static final String FIELDS_NO_PKID = FIELDS.substring(5);
+	@DatabaseField(generatedId = true, columnName = "pkid")
 	private Integer pkid;
+	@DatabaseField(columnName = "item_code")
 	private String itemCode;
+	@DatabaseField(columnName = "item_name")
 	private String itemName;
+	@DatabaseField(columnName = "ma_cost")
 	private BigDecimal maCost;
+	@DatabaseField(columnName = "category_id")
 	private Integer categoryId;
+	@DatabaseField(columnName = "image", dataType = DataType.BYTE_ARRAY)
 	private byte[] image;
+
+	private Dao<Item, Integer> itemDao;
+
 	///////////////////////////
 	public Item() {
 		this.pkid = new Integer(0);
@@ -46,6 +66,7 @@ public class Item implements Bean<Item> {
 		this.maCost = new BigDecimal(0);
 		this.categoryId = new Integer(0);
 		this.image = null;
+		this.createDao();
 	}
 	public Integer getPkid() {
 		return pkid;
@@ -102,7 +123,7 @@ public class Item implements Bean<Item> {
 		}
 		return itm;
 	}*/
-	public Item getObject(Integer pkid) {
+	/*public Item getObject(Integer pkid) {
 		try {
 			List<Item> itemtLst = new Item().getObjects("pkid = " + pkid);
 			if(itemtLst != null && ! itemtLst.isEmpty()) {
@@ -141,7 +162,7 @@ public class Item implements Bean<Item> {
 			ex.printStackTrace();
 		}
 		return rtnResult;
-	}
+	}*/
 	private static Item mapValues(TreeMap oneRow) {
 		Item itm = new Item();
 		try {
@@ -168,12 +189,12 @@ public class Item implements Bean<Item> {
 		}
 		return itm;
 	}
-	public Integer setObject(Item itmObj) throws Exception{
+	/*public Integer setObject(Item itmObj) throws Exception{
 		Integer pkid =  new Integer(0);
 		try {
-			/*String values = getValuesInString(itmObj);
+			String values = getValuesInString(itmObj);
 			String query = "INSERT INTO " + TABLE_NAME + " (" + FIELDS_NO_PKID + ") VALUES (" + values + ")";
-			Utilities.executeSqlQuery(query);*/
+			Utilities.executeSqlQuery(query);
 			// Adding Image Blob
 			String query = "INSERT INTO " + TABLE_NAME + " (" + FIELDS_NO_PKID + ") VALUES (";
 			for(int i=0;i<FIELDS_NO_PKID.split("[,]").length;i++) {
@@ -192,7 +213,7 @@ public class Item implements Bean<Item> {
 			throw ex;
 		}
 		return pkid;
-	}
+	}*/
 	private static String getValuesInString(Item itmObj) {
 		String values = "";
 		try {
@@ -205,7 +226,7 @@ public class Item implements Bean<Item> {
 		}
 		return values;
 	}
-	private void insertObjectToDb(String sqlStatement, Item itmObj) throws Exception
+	/*private void insertObjectToDb(String sqlStatement, Item itmObj) throws Exception
 	{
 		Connection connection = null;
 		connection = JDBCConnection.getConnection();
@@ -248,6 +269,103 @@ public class Item implements Bean<Item> {
 				ex.printStackTrace();
 				throw ex;
 			}
+		}
+	}*/
+	public Item getObject(Integer pkid) {
+		try {
+			return this.itemDao.queryForId(pkid);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	public Item getObject(String itemCode) {
+		try {
+			List<Item> items = this.itemDao.queryForEq("item_code", itemCode); 
+			if(items != null && !items.isEmpty() && items.size()>0) {
+				return items.get(0);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	public List<Item> getObjects(Map<String,Object> conditions) {
+		List<Item> rtnResult = new ArrayList<Item>();
+		try {
+			rtnResult = this.itemDao.queryForFieldValues(conditions);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return rtnResult;
+	}
+	public List<Item> getObjectsByQuery(String[] query, String orderBy, Boolean isAsc) {
+		QueryBuilder<Item,Integer> queryBuilder = itemDao.queryBuilder();
+		Where<Item,Integer> where = queryBuilder.where();
+		List<Item> items = null;
+		try {
+			for(int i=0;i<query.length;i++) {
+				String oneCondition = query[i];
+				if("AND".equalsIgnoreCase(oneCondition)) {
+					where.and();
+				} else if("OR".equalsIgnoreCase(oneCondition)) {
+					where.or();
+				} else if("NOT".equalsIgnoreCase(oneCondition)) {
+					where.not();
+				} else if("IN".equalsIgnoreCase(oneCondition)) {
+					where.in(query[++i], query[++i]);
+				} else if("LIKE".equalsIgnoreCase(oneCondition)) {
+					where.like(query[++i], query[++i]);
+				} else {
+					String[] twoConditions = oneCondition.split("[=]");
+					where.eq(twoConditions[0].trim(), twoConditions[1].trim());
+				}
+			}
+			if(!Utilities.isNullOrEmpty(orderBy)) {
+				if(isAsc != null) {
+					queryBuilder.orderBy(orderBy, isAsc);
+				} else {
+					queryBuilder.orderBy(orderBy, true);
+				}
+			}
+			items = queryBuilder.query();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return items;
+	}
+	public List<Item> getObjects() {
+		try {
+			return this.itemDao.queryForAll();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public Integer setObject(Item item) throws Exception{
+
+		try {
+			if (item != null) {
+				if(this.itemDao.isTableExists()) {
+					this.itemDao.create(item);
+					return this.itemDao.extractId(item);
+				} else {
+					new DbInit().createTables();
+					this.itemDao.create(item);
+					return this.itemDao.extractId(item);
+				}
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	private void createDao()
+	{
+		try {
+			this.itemDao = DaoManager.createDao(JDBCConnection.getConnection(), Item.class);
+		} catch(Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 }

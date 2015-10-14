@@ -20,17 +20,26 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 import com.outlet.common.Utilities;
+import com.outlet.gui.report.BillMining;
+import com.outlet.objects.BillIndex;
+import com.outlet.objects.BillItem;
+import com.outlet.objects.Category;
+import com.outlet.objects.Company;
+import com.outlet.objects.Item;
+import com.outlet.objects.Outlet;
 public class DbInit
 {
 	// 	Connect to local dbs
-	private Connection connection = null;
+	private JdbcConnectionSource connection = null;
 	public static final String DB_NAME = "OUTLET_PURCHASE";
 	public DbInit() throws Exception
 	{
 		try {
-			initializeDb();
-			createTables();
+			this.initializeDb();
+			this.createTables();
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			throw ex;
@@ -40,14 +49,23 @@ public class DbInit
 	{
 		try
 		{
-			connection = JDBCConnection.getConnection(DB_NAME);
+			this.connection = JDBCConnection.getConnection(DB_NAME);
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
 	}
-	private void createTables() throws Exception
+	public void createTables() throws Exception {
+		TableUtils.createTableIfNotExists(this.connection, Outlet.class);
+		TableUtils.createTableIfNotExists(this.connection, Item.class);
+		TableUtils.createTableIfNotExists(this.connection, Company.class);
+		TableUtils.createTableIfNotExists(this.connection, Category.class);
+		TableUtils.createTableIfNotExists(this.connection, com.outlet.objects.BillMining.class);
+		TableUtils.createTableIfNotExists(this.connection, BillItem.class);
+		TableUtils.createTableIfNotExists(this.connection, BillIndex.class);
+	}
+	/*private void createTables() throws Exception
 	{
 		File folder = new File(".\\sql");
 		File[] listOfFiles = folder.listFiles();
@@ -65,10 +83,10 @@ public class DbInit
 		    		Utilities.executeSqlQuery(fileContent);
 		    	}
 		    	// If it is stored in directory
-		    	/*else if (listOfFiles[i].isDirectory()) 
+		    	else if (listOfFiles[i].isDirectory()) 
 		      	{
 		        	System.out.println("Directory " + listOfFiles[i].getName());
-		      	}*/
+		      	}
 		    }
 		}
 		catch(FileNotFoundException fex) {
@@ -188,5 +206,5 @@ public class DbInit
 			throw ex;
 		}
 		
-	}
+	}*/
 }

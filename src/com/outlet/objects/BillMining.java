@@ -18,14 +18,23 @@
 package com.outlet.objects;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.outlet.common.Utilities;
+import com.outlet.db.DbInit;
+import com.outlet.db.JDBCConnection;
 
+@DatabaseTable(tableName = "bill_mining")
 public class BillMining implements Bean<BillMining> {
 
 	public static final String TABLE_NAME = "bill_mining";
@@ -36,11 +45,18 @@ public class BillMining implements Bean<BillMining> {
 			+ "Frequency of Purchase,FOP With Optimal Price ,Last Appearance, Item Image";
 	
 	public static final String[] HEADER_FIELDS_ARR = HEADER_FIELDS.split("[,]");
+	@DatabaseField(columnName = "guid")
 	private String guid;
+	@DatabaseField(columnName = "item_id")
 	private Integer itemId;
+	@DatabaseField(columnName = "price")
 	private BigDecimal price;
+	@DatabaseField(columnName = "outlet_pkid")
 	private Integer outletPkid;
-	private Timestamp dateOfSuggestion; 
+	@DatabaseField(columnName = "date_of_suggestion")
+	private Timestamp dateOfSuggestion;
+	private Dao<BillMining, Integer> billMiningDao;
+
 	///////////////////////////////////
 	public BillMining()
 	{
@@ -49,6 +65,7 @@ public class BillMining implements Bean<BillMining> {
 		this.price = new BigDecimal(0);
 		this.outletPkid = new Integer(0);
 		this.dateOfSuggestion = Utilities.getCurrentTime();
+		this.createDao();
 	}
 	public String getGuid() {
 		return guid;
@@ -81,7 +98,7 @@ public class BillMining implements Bean<BillMining> {
 		this.dateOfSuggestion = dateOfSuggestion;
 	}
 	// Implementing Nut
-	public BillMining getObject(Integer pkid)
+	/*public BillMining getObject(Integer pkid)
 	{
 		BillMining bm = new BillMining();
 		try {
@@ -118,7 +135,7 @@ public class BillMining implements Bean<BillMining> {
 			ex.printStackTrace();
 		}
 		return rtnResult;
-	}
+	}*/
 	private static BillMining mapValues(TreeMap oneRow) {
 		BillMining bm = new BillMining();
 		try {
@@ -135,7 +152,7 @@ public class BillMining implements Bean<BillMining> {
 		}
 		return bm;
 	}
-	public Integer setObject(BillMining billMinObj) throws Exception{
+	/*public Integer setObject(BillMining billMinObj) throws Exception{
 		Integer pkid = new Integer(0);
 		try {
 			String values = getValuesInString(billMinObj);
@@ -147,7 +164,7 @@ public class BillMining implements Bean<BillMining> {
 			throw ex;
 		}
 		return pkid;
-	}
+	}*/
 	private static String getValuesInString(BillMining billMinObj) {
 		String values = "";
 		try {
@@ -167,11 +184,14 @@ public class BillMining implements Bean<BillMining> {
 		// One Row, One Item Suggestion
 		try {
 			// First loop through items
-			List<Item> itmLst = new Item().getObjects("1=1 ORDER BY PKID");
+			List<Item> itmLst = new Item().getObjects();
 			for(int i=0;i<itmLst.size();i++) {
 				Item oneItem = itmLst.get(i);
 				// Now get all bills for this item
-				List<BillItem> billItmLst = new BillItem().getObjects("item_id = " + oneItem.getPkid() + " ORDER BY PKID");
+				Map<String,Object> conditions = new TreeMap<String,Object>();
+				conditions.put("item_id", oneItem.getPkid());
+				//List<BillItem> billItmLst = new BillItem().getObjects("item_id = " + oneItem.getPkid() + " ORDER BY PKID");
+				List<BillItem> billItmLst = new BillItem().getObjects(conditions);
 				if(billItmLst.size()>0) {
 					RptRow oneRow = new RptRow();
 					oneRow.itemId = oneItem.getPkid();
@@ -245,6 +265,67 @@ public class BillMining implements Bean<BillMining> {
 			this.fopWithOptimalPrice = new Integer(0);
 			this.lastAppearance = Utilities.getCurrentTime();
 			this.image = null;
+		}
+	}
+	
+	// TODO implement later
+	public BillMining getObject(Integer pkid) {
+		/*try {
+			return this.billMiningDao.queryForId(pkid);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}*/
+		return null;
+	}
+	public BillMining getObject(String guid) {
+		try {
+			return this.billMiningDao.queryForEq("guid", guid).get(0);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	public List<BillMining> getObjects(Map<String,Object> conditions) {
+		List<BillMining> rtnResult = new ArrayList<BillMining>();
+		try {
+			rtnResult = this.billMiningDao.queryForFieldValues(conditions);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return rtnResult;
+	}
+	public List<BillMining> getObjects() {
+		try {
+			return this.billMiningDao.queryForAll();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public Integer setObject(BillMining billMining) throws Exception{
+
+		try {
+			if (billMining != null) {
+				if(this.billMiningDao.isTableExists()) {
+					this.billMiningDao.create(billMining);
+					return 0;
+				} else {
+					new DbInit().createTables();
+					this.billMiningDao.create(billMining);
+					return 0;
+				}
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	private void createDao()
+	{
+		try {
+			this.billMiningDao = DaoManager.createDao(JDBCConnection.getConnection(), BillMining.class);
+		} catch(Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 	

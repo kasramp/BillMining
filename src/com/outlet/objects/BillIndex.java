@@ -18,24 +18,45 @@
 package com.outlet.objects;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.outlet.common.Utilities;
+import com.outlet.db.DbInit;
+import com.outlet.db.JDBCConnection;
+
+@DatabaseTable(tableName = "bill_index")
 public class BillIndex implements Bean<BillIndex>{
 
 	public static final String TABLE_NAME = "bill_index";
 	public static final String FIELDS = "pkid, company_pkid, outlet_pkid, bill_amount, gst_amount, total_amount, date_created";
 	public static final String FIELDS_NO_PKID = FIELDS.substring(5);
+	
+	@DatabaseField(generatedId = true, columnName = "pkid")
 	private Integer pkid;
+	@DatabaseField(columnName = "company_pkid")
 	private Integer companyPkid;
+	@DatabaseField(columnName = "outlet_pkid")
 	private Integer outletPkid;
+	@DatabaseField(columnName = "bill_amount")
 	private BigDecimal billAmount;
+	@DatabaseField(columnName = "gst_amount")
 	private BigDecimal gstAmount;
+	@DatabaseField(columnName = "total_amount")
 	private BigDecimal totalAmount;
+	@DatabaseField(columnName = "date_created")
 	private Timestamp dateCreated;
+	
+	private Dao<BillIndex, Integer> billIndexDao;
+
 	////////////////////////////////
 	public BillIndex()
 	{
@@ -46,6 +67,7 @@ public class BillIndex implements Bean<BillIndex>{
 		this.gstAmount = new BigDecimal(0);
 		this.totalAmount = new BigDecimal(0);
 		this.dateCreated = Utilities.getCurrentTime();
+		this.createDao();
 	}
 	public Integer getPkid() {
 		return pkid;
@@ -90,7 +112,7 @@ public class BillIndex implements Bean<BillIndex>{
 		this.dateCreated = dateCreated;
 	}
 	// Implementing Nut
-	public BillIndex getObject(Integer pkid)
+	/*public BillIndex getObject(Integer pkid)
 	{
 		BillIndex bill = new BillIndex();
 		try {
@@ -114,8 +136,8 @@ public class BillIndex implements Bean<BillIndex>{
 			ex.printStackTrace();
 		}
 		return bill;
-	}
-	// TODO implement this method later
+	}*/
+	/*// TODO implement this method later
 	public BillIndex getObject(String obj){ return null;}
 	public List<BillIndex> getObjects(String conditions)
 	{
@@ -134,7 +156,7 @@ public class BillIndex implements Bean<BillIndex>{
 			ex.printStackTrace();
 		}
 		return rtnResult;
-	}
+	}*/
 	private static BillIndex mapValues(TreeMap oneRow) {
 		BillIndex bill = new BillIndex();
 		try {
@@ -165,7 +187,7 @@ public class BillIndex implements Bean<BillIndex>{
 		}
 		return bill;
 	}
-	public Integer setObject(BillIndex billObj) throws Exception{
+	/*public Integer setObject(BillIndex billObj) throws Exception{
 		Integer pkid = new Integer(0);
 		try {
 			String values = getValuesInString(billObj);
@@ -177,7 +199,7 @@ public class BillIndex implements Bean<BillIndex>{
 			throw ex;
 		}
 		return pkid;
-	}
+	}*/
 	private static String getValuesInString(BillIndex billObj) {
 		String values = "";
 		try {
@@ -192,6 +214,65 @@ public class BillIndex implements Bean<BillIndex>{
 		}
 		return values;
 	}
+	
+	public BillIndex getObject(Integer pkid) {
+		try {
+			return this.billIndexDao.queryForId(pkid);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	public BillIndex getObject(String obj) {
+		/*try {
+			return this.billIndexDao.queryForEq("category_code", categoryCode).get(0);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}*/
+		return null;
+	}
+	public List<BillIndex> getObjects(Map<String,Object> conditions) {
+		List<BillIndex> rtnResult = new ArrayList<BillIndex>();
+		try {
+			rtnResult = this.billIndexDao.queryForFieldValues(conditions);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return rtnResult;
+	}
+	public List<BillIndex> getObjects() {
+		try {
+			return this.billIndexDao.queryForAll();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public Integer setObject(BillIndex billIndex) throws Exception{
 
+		try {
+			if (billIndex != null) {
+				if(this.billIndexDao.isTableExists()) {
+					this.billIndexDao.create(billIndex);
+					return this.billIndexDao.extractId(billIndex);
+				} else {
+					new DbInit().createTables();
+					this.billIndexDao.create(billIndex);
+					return this.billIndexDao.extractId(billIndex);
+				}
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	private void createDao()
+	{
+		try {
+			this.billIndexDao = DaoManager.createDao(JDBCConnection.getConnection(), BillIndex.class);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 	
 }

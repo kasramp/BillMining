@@ -29,7 +29,7 @@ The project sturucture is like following,
  * com/outlet/db --> database initialization and connection files
  * com/outlet/gui --> gui related files (Add for add functions [pages], Report for reporting functions [pages], MainPage --> First page).
  * com/outlet/objects --> mapping Sql table to java objects
-* /sql --> all sql files (tables) for database
+* /sql --> all sql files (tables) for database (Deprecated, using ORMLite instead)
 * /target --> project executable jar file
 * /doc --> project documentation
 * /bin --> compiled .class files

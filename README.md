@@ -6,7 +6,7 @@ BillMining is a Swing program with Sqlite as backend with the purpose of adding 
 
 The use of this application is not difficult, it just requires some basic configuration for companies, outlets (branches) and items. After that you can start adding your bills and get an analysis report for your bills and get suggestion which items you should purchase from which places. As a result, you can save your cost and lower your grocery or any other expenditure.
 
-This project has not finalized yet, still is under active developement and requires more features which will be adding gradually.
+This project has not finalized yet, still is under active development and requires more features which will be adding gradually.
 
 ##Dependencies
 The program works out the box so smoothly and all necessary dependencies have been already added to the project. 

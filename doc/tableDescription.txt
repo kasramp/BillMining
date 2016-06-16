@@ -14,5 +14,5 @@ guid TEXT NOT NULL, -- can be from combination of different fields (composite ke
 item_id INTEGER NOT NULL,
 price INTEGER NOT NULL,
 outlet_pkid INTEGER NOT NULL,
-date_of_suggestion TEXT -- for gradual completetion (ETL)
+date_of_suggestion TEXT -- for gradual completion (ETL)
 );

@@ -1,14 +1,14 @@
 # BillMining
 Mine your bill with this program to optain optimal price for items your purchase
 
-##Description
+## Description
 BillMining is a Swing program with Sqlite as backend with the purpose of adding company, outlet, item and item categories of your purchased bill to get optimal price for the items you purchase based on the various outlets you perform your purchases. It is able to suggest list of outlets for the particular items which are sold cheaper in comparison with other places (shops). 
 
 The use of this application is not difficult, it just requires some basic configuration for companies, outlets (branches) and items. After that you can start adding your bills and get an analysis report for your bills and get suggestion which items you should purchase from which places. As a result, you can save your cost and lower your grocery or any other expenditure.
 
 This project has not finalized yet, still is under active development and requires more features which will be adding gradually.
 
-##Dependencies
+## Dependencies
 The program works out the box so smoothly and all necessary dependencies have been already added to the project. 
 You just need to compile the code and run the executable jar file.
 
@@ -19,7 +19,7 @@ BillMining is cross platform and can be executed in Linux, Windows, Mac OS X flo
 	$ cd target  
 	$ java -jar BillMining-0.0.1.jar
 
-##Technical description
+## Technical description
 The project sturucture is like following,
 
 * /src --> source code
@@ -38,7 +38,7 @@ The project sturucture is like following,
 * kasra@madadipouya.com  
 * kasra_mp@live.com  
 	
-##License
+## License
 BillMining is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 3
 as published by the Free Software Foundation.
@@ -50,5 +50,5 @@ GNU General Public License for more details.  <http://www.gnu.org/licenses/>
 
 Author(s):
 
-© 2015 Kasra Madadipouya <kasra@madadipouya.com>
+© 2015-2017 Kasra Madadipouya <kasra@madadipouya.com>
 

@@ -36,7 +36,6 @@ The project sturucture is like following,
 
 ## Contact
 * kasra@madadipouya.com  
-* kasra_mp@live.com  
 	
 ## License
 BillMining is free software; you can redistribute it and/or modify
@@ -50,5 +49,5 @@ GNU General Public License for more details.  <http://www.gnu.org/licenses/>
 
 Author(s):
 
-© 2015-2017 Kasra Madadipouya <kasra@madadipouya.com>
+© 2015-2018 Kasra Madadipouya <kasra@madadipouya.com>
 
